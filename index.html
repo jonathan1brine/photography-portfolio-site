@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonathan's Photography</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            background-color: #f5f0e8; /* soft off-white / vintage paper */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #2c2c2c;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.8rem;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+        nav {
+            margin-top: 1.5rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            margin: 0 1rem;
+            border-bottom: 2px solid transparent;
+        }
+        nav a:hover {
+            border-bottom: 2px solid #d4a017;
+        }
+        main {
+            max-width: 1100px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        .series-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        .series-card {
+            background: white;
+            padding: 1rem;
+            border: 8px solid #e8e0d4;
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .series-card:hover {
+            transform: scale(1.03);
+        }
+        .series-card h2 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.4rem;
+            color: #444;
+        }
+        .series-card p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #666;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Jonathan's Photography</h1>
+        <nav>
+            <a href="#series">Series</a>
+            <a href="mailto:jonathan1brine@gmail.com">Contact Me</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="series">
+            <h2 style="text-align:center; margin-bottom:2rem; font-size:1.8rem;">Photo Series</h2>
+            
+            <div class="series-grid">
+                <!-- Album 1 -->
+                <div class="series-card">
+                    <h2>Japan • April 2025</h2>
+                    <p>Street scenes and cherry blossoms in Tokyo and Kyoto.</p>
+                </div>
+
+                <!-- Album 2 -->
+                <div class="series-card">
+                    <h2>Sydney • February 2026</h2>
+                    <p>Harbour light and coastal walks.</p>
+                </div>
+
+                <!-- Album 3 -->
+                <div class="series-card">
+                    <h2>Adelaide Hills • November 2025</h2>
+                    <p>Autumn colours and misty mornings.</p>
+                </div>
+
+                <!-- Add more later -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        © 2026 Jonathan Brine • All photographs are my own
+    </footer>
+</body>
+</html>
