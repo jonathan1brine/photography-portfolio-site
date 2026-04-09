@@ -66,6 +66,8 @@
                 const img = document.createElement('img');
                 img.src = photo.src;
                 img.alt = photo.title;
+                img.loading = "lazy";        // ← This is the main fix
+                img.decoding = "async";      // ← Helps performance
                 img.onclick = () => showModal(photo);
                 gallery.appendChild(img);
             });
