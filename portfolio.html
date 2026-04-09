@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Jonathan Brine</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500&display=swap');
+
+        body { font-family: 'Inter', system-ui, sans-serif; background-color: #ffffff; color: #222; margin: 0; padding: 0; }
+        header { padding: 2rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; }
+        .header-left { display: flex; align-items: center; gap: 1rem; }
+        .selfie { width: 68px; height: 68px; border-radius: 50%; object-fit: cover; }
+        h1 { font-family: 'Playfair Display', serif; margin: 0; font-size: 2.7rem; font-weight: 400; letter-spacing: -1px; }
+        nav a { color: #222; text-decoration: none; margin-left: 2.2rem; font-size: 1.1rem; font-weight: 500; }
+        nav a:hover { color: #d4a017; }
+
+        main { max-width: 1280px; margin: 5rem auto; padding: 0 5%; }
+        h2 { text-align: center; font-size: 2.3rem; margin-bottom: 4rem; font-weight: 400; letter-spacing: -0.8px; }
+        .series-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 3rem; }
+        .series-card { text-decoration: none; color: inherit; transition: transform 0.3s; }
+        .series-card:hover { transform: translateY(-6px); }
+        .series-card img { width: 100%; height: 300px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem; box-shadow: 0 15px 35px rgba(0,0,0,0.12); }
+        .series-card h3 { font-family: 'Playfair Display', serif; margin: 0 0 0.5rem; font-size: 1.75rem; }
+        .series-card p { margin: 0; color: #666; font-size: 1.05rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <img src="images/pfp.jpg" alt="Jonathan Brine" class="selfie">
+            <h1>Jonathan Brine</h1>
+        </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="about.html">About</a>
+            <a href="mailto:jonathan1brine@gmail.com">Email</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Photo Series</h2>
+        <div class="series-grid">
+            <a href="japan.html" class="series-card">
+                <img src="images/japan/1.jpg" alt="Japan">
+                <h3>Japan • April 2025</h3>
+                <p>My first overseas trip</p>
+            </a>
+            <a href="sydney.html" class="series-card">
+                <img src="images/sydney/1.jpg" alt="Sydney">
+                <h3>Sydney • February 2026</h3>
+                <p>My first solo travel</p>
+            </a>
+            <a href="melbourne.html" class="series-card">
+                <img src="images/melbourne/1.jpg" alt="Melbourne">
+                <h3>Melbourne • December 2025</h3>
+                <p>Travelling for concerts</p>
+            </a>
+            <a href="adelaide.html" class="series-card">
+                <img src="images/adelaide/1.jpg" alt="Adelaide">
+                <h3>Adelaide • 2025</h3>
+                <p>My hometown</p>
+            </a>
+        </div>
+    </main>
+</body>
+</html>

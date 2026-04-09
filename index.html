@@ -3,41 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jonathan Brine Photography</title>
+    <title>Jonathan Brine | Photography</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500&display=swap');
 
-        body { font-family: 'Inter', system-ui, sans-serif; background-color: #ffffff; color: #222; margin: 0; padding: 0; }
-        header { padding: 2rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; }
-        .header-left { display: flex; align-items: center; gap: 1rem; }
-        .selfie { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
-        h1 { font-family: 'Playfair Display', serif; margin: 0; font-size: 2.6rem; font-weight: 400; letter-spacing: -1px; }
-        nav a { color: #222; text-decoration: none; margin-left: 2rem; font-size: 1.1rem; font-weight: 500; }
-        nav a:hover { color: #d4a017; }
+        :root {
+            --accent: #d4a017;
+        }
 
-        .hero { text-align: center; padding: 6rem 5% 4rem; background: linear-gradient(to bottom, #f8f5f0, #ffffff); }
-        .hero h2 { font-family: 'Playfair Display', serif; font-size: 3.2rem; margin: 0 0 1rem; font-weight: 400; letter-spacing: -1.5px; }
-        .hero p { max-width: 620px; margin: 0 auto 3rem; font-size: 1.25rem; color: #555; line-height: 1.6; }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #ffffff;
+            color: #222;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .selfie {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #f8f5f0;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+            font-size: 2.75rem;
+            font-weight: 400;
+            letter-spacing: -1.2px;
+        }
+        nav a {
+            color: #222;
+            text-decoration: none;
+            margin-left: 2.2rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--accent); }
 
-        main { max-width: 1200px; margin: 0 auto; padding: 0 5% 5rem; }
-        h3 { text-align: center; font-size: 1.9rem; margin-bottom: 3rem; font-weight: 400; }
-        .series-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 2.5rem; }
-        .series-card { text-decoration: none; color: inherit; }
-        .series-card img { width: 100%; height: 280px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem; }
-        .series-card h4 { font-family: 'Playfair Display', serif; margin: 0 0 0.4rem; font-size: 1.65rem; }
-        .series-card p { margin: 0; color: #666; font-size: 1.05rem; }
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 7rem 5% 5rem;
+            background: linear-gradient(to bottom, #f8f5f0, #ffffff);
+        }
+        .hero h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin: 0 0 1.2rem;
+            font-weight: 400;
+            letter-spacing: -1.8px;
+        }
+        .hero p {
+            max-width: 680px;
+            margin: 0 auto 3rem;
+            font-size: 1.3rem;
+            color: #555;
+            line-height: 1.7;
+        }
+        .cta-button {
+            display: inline-block;
+            background: #222;
+            color: white;
+            padding: 1.1rem 3rem;
+            font-size: 1.15rem;
+            font-weight: 500;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            background: var(--accent);
+            color: #222;
+            transform: translateY(-3px);
+        }
 
-        footer { text-align: center; padding: 3rem 5%; border-top: 1px solid #eee; color: #777; font-size: 0.95rem; }
+        /* Highlights */
+        .highlights {
+            padding: 5rem 5% 6rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .highlights h3 {
+            text-align: center;
+            font-size: 1.85rem;
+            margin-bottom: 3.5rem;
+            font-weight: 400;
+        }
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+            gap: 2rem;
+        }
+        .highlight-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+            transition: transform 0.4s ease;
+        }
+        .highlight-card:hover {
+            transform: scale(1.03);
+        }
+        .highlight-card img {
+            width: 100%;
+            height: 340px;
+            object-fit: cover;
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3.5rem 5%;
+            border-top: 1px solid #eee;
+            color: #777;
+            font-size: 0.95rem;
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="header-left">
-            <img src="images/pfp.jpg" alt="Jonathan" class="selfie">
+            <img src="images/pfp.jpg" alt="Jonathan Brine" class="selfie">
             <h1>Jonathan Brine</h1>
         </div>
         <nav>
-            <a href="index.html">Portfolio</a>
+            <a href="index.html">Home</a>
+            <a href="portfolio.html">Portfolio</a>
             <a href="about.html">About</a>
             <a href="mailto:jonathan1brine@gmail.com">Email</a>
         </nav>
@@ -46,36 +152,21 @@
     <section class="hero">
         <h2>Capturing moments that matter</h2>
         <p>Street, landscape, and travel photography from Adelaide, Japan, Sydney, Melbourne and beyond.</p>
+        <a href="portfolio.html" class="cta-button">View Full Portfolio</a>
     </section>
 
-    <main>
-        <h3>Photo Series</h3>
-        <div class="series-grid">
-            <a href="japan.html" class="series-card">
-                <img src="images/japan/1.jpg" alt="Japan">
-                <h4>Japan - April 2025</h4>
-                <p>My first overseas trip</p>
-            </a>
-            <a href="sydney.html" class="series-card">
-                <img src="images/sydney/1.jpg" alt="Sydney">
-                <h4>Sydney - February 2026</h4>
-                <p>My first solo travel</p>
-            </a>
-            <a href="melbourne.html" class="series-card">
-                <img src="images/melbourne/1.jpg" alt="Melbourne">
-                <h4>Melbourne - December 2025</h4>
-                <p>Travelling for concerts</p>
-            </a>
-            <a href="adelaide.html" class="series-card">
-                <img src="images/adelaide/1.jpg" alt="Adelaide">
-                <h4>Adelaide</h4>
-                <p>My hometown</p>
-            </a>
+    <section class="highlights">
+        <h3>Recent Work</h3>
+        <div class="highlight-grid">
+            <div class="highlight-card"><img src="images/japan/1.jpg" alt="Japan"></div>
+            <div class="highlight-card"><img src="images/sydney/1.jpg" alt="Sydney"></div>
+            <div class="highlight-card"><img src="images/melbourne/1.jpg" alt="Melbourne"></div>
+            <div class="highlight-card"><img src="images/adelaide/1.jpg" alt="Adelaide"></div>
         </div>
-    </main>
+    </section>
 
     <footer>
-        © 2026 Jonathan Brine  -  All photographs are my own
+        © 2026 Jonathan Brine — All photographs are my own
     </footer>
 
     <script src="js/script.js"></script>
