@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japan • April 2025 | Jonathan's Photography</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500&display=swap');
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #ffffff;
+            color: #222;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+        .back {
+            color: #222;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        .back:hover { color: #d4a017; }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+            font-size: 2.1rem;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+        }
+        .gallery {
+            columns: 3;
+            column-gap: 2rem;
+            padding: 4rem 5%;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .gallery img {
+            width: 100%;
+            margin-bottom: 2rem;
+            border-radius: 6px;
+            display: block;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .gallery img:hover { transform: scale(1.02); }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        .modal-content {
+            background: white;
+            max-width: 95vw;
+            max-height: 95vh;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: auto;
+        }
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 2.8rem;
+            color: #222;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .gallery { columns: 2; }
+        }
+        @media (max-width: 480px) {
+            .gallery { columns: 1; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="back">← Back to Works</a>
+        <h1>Japan • April 2025</h1>
+    </header>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div class="modal" id="modal" onclick="if(event.target === this) closeModal()">
+        <div class="modal-content" onclick="event.stopImmediatePropagation()">
+            <span class="close" onclick="closeModal()">×</span>
+            <img id="modalImg" src="" alt="">
+            <h3 id="modalTitle" style="margin:10px 0 8px; font-family:'Playfair Display',serif;"></h3>
+            <p id="modalDesc" style="margin:0; line-height:1.7;"></p>
+        </div>
+    </div>
+
+    <script>
+        const photos = [
+            { src: "images/japan/1.jpg", title: "Kyoto Morning", desc: "Cherry blossoms just beginning to fall. The light was soft and the streets were quiet." },
+            { src: "images/japan/2.jpg", title: "Shibuya Crossing", desc: "Rainy night. The reflections made everything feel alive." },
+            { src: "images/japan/3.jpg", title: "Arashiyama Bamboo", desc: "Early morning before the crowds arrived. The height of the bamboo was humbling." },
+            { src: "images/japan/4.jpg", title: "Fushimi Inari", desc: "Late afternoon light filtering through the torii gates." },
+            { src: "images/japan/5.jpg", title: "Tokyo Rooftop", desc: "Golden hour from a quiet rooftop in Shinjuku." },
+            { src: "images/japan/6.jpg", title: "Kyoto Temple", desc: "Quiet moment at a small temple away from the main tourist spots." }
+        ];
+
+        function loadGallery() {
+            const gallery = document.getElementById('gallery');
+            photos.forEach(photo => {
+                const img = document.createElement('img');
+                img.src = photo.src;
+                img.alt = photo.title;
+                img.onclick = () => showModal(photo);
+                gallery.appendChild(img);
+            });
+        }
+
+        function showModal(photo) {
+            document.getElementById('modalImg').src = photo.src;
+            document.getElementById('modalTitle').textContent = photo.title;
+            document.getElementById('modalDesc').textContent = photo.desc;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        window.onload = loadGallery;
+    </script>
+</body>
+</html>
