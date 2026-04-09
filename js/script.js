@@ -1,4 +1,4 @@
-// script.js - Shared functionality for all galleries
+// js/script.js - Shared modal functionality for all galleries
 
 function openModal(photo) {
     const modal = document.getElementById('modal');
@@ -9,6 +9,7 @@ function openModal(photo) {
     modalImg.src = photo.src;
     modalTitle.textContent = photo.title;
     modalDesc.textContent = photo.desc;
+    
     modal.style.display = 'flex';
 }
 
@@ -17,6 +18,16 @@ function closeModal() {
     modal.style.display = 'none';
 }
 
-// Make functions available globally
+// Close modal when pressing ESC key
+document.addEventListener('keydown', function(e) {
+    if (e.key === "Escape") {
+        const modal = document.getElementById('modal');
+        if (modal && modal.style.display === 'flex') {
+            closeModal();
+        }
+    }
+});
+
+// Make functions available to all gallery pages
 window.openModal = openModal;
 window.closeModal = closeModal;
