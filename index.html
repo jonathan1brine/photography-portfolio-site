@@ -27,9 +27,7 @@
             font-size: 1.1rem;
             font-weight: 500;
         }
-        .back:hover {
-            color: #d4a017;
-        }
+        .back:hover { color: #d4a017; }
         h1 {
             font-family: 'Playfair Display', serif;
             margin: 0;
@@ -52,11 +50,8 @@
             cursor: pointer;
             transition: transform 0.3s ease;
         }
-        .gallery img:hover {
-            transform: scale(1.02);
-        }
+        .gallery img:hover { transform: scale(1.02); }
 
-        /* Modal - FIXED for vertical photos + responsive */
         .modal {
             display: none;
             position: fixed;
@@ -79,8 +74,8 @@
         .modal-content img {
             width: 100%;
             height: auto;
-            max-height: 80vh;           /* Prevents overflow on tall images */
-            object-fit: contain;        /* Keeps full image visible */
+            max-height: 80vh;
+            object-fit: contain;
             border-radius: 6px;
             margin-bottom: 1.5rem;
         }
@@ -94,22 +89,11 @@
             z-index: 10;
         }
 
-        /* Mobile responsiveness */
         @media (max-width: 768px) {
-            .gallery {
-                columns: 2;
-            }
-            header {
-                padding: 1.5rem 5%;
-            }
-            h1 {
-                font-size: 1.8rem;
-            }
+            .gallery { columns: 2; }
         }
         @media (max-width: 480px) {
-            .gallery {
-                columns: 1;
-            }
+            .gallery { columns: 1; }
         }
     </style>
 </head>
@@ -132,11 +116,12 @@
 
     <script>
         const photos = [
-            { src: "https://picsum.photos/id/1015/1200/800", title: "Kyoto Morning", desc: "Cherry blossoms just beginning to fall. The light was soft and the streets were quiet." },
-            { src: "https://picsum.photos/id/133/800/1200", title: "Shibuya Crossing", desc: "Rainy night. The reflections made everything feel alive." },
-            { src: "https://picsum.photos/id/201/1400/900", title: "Arashiyama Bamboo", desc: "Early morning before the crowds arrived. The height of the bamboo was humbling." },
-            { src: "https://picsum.photos/id/251/900/1400", title: "Fushimi Inari", desc: "Late afternoon light filtering through the torii gates." },
-            { src: "https://picsum.photos/id/1016/1100/700", title: "Tokyo Rooftop", desc: "Golden hour from a quiet rooftop in Shinjuku." }
+            { src: "images/japan/1.jpg", title: "Kyoto Morning", desc: "Cherry blossoms just beginning to fall. The light was soft and the streets were quiet." },
+            { src: "images/japan/2.jpg", title: "Shibuya Crossing", desc: "Rainy night. The reflections made everything feel alive." },
+            { src: "images/japan/3.jpg", title: "Arashiyama Bamboo", desc: "Early morning before the crowds arrived. The height of the bamboo was humbling." },
+            { src: "images/japan/4.jpg", title: "Fushimi Inari", desc: "Late afternoon light filtering through the torii gates." },
+            { src: "images/japan/5.jpg", title: "Tokyo Rooftop", desc: "Golden hour from a quiet rooftop in Shinjuku." },
+            { src: "images/japan/6.jpg", title: "Kyoto Temple", desc: "Quiet moment at a small temple away from the main tourist spots." }
         ];
 
         function loadGallery() {
