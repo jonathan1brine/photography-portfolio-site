@@ -9,7 +9,7 @@
 
         body {
             font-family: 'Inter', system-ui, sans-serif;
-            background-color: #ffffff; /* pure white */
+            background-color: #ffffff;
             color: #222;
             margin: 0;
             padding: 0;
@@ -41,7 +41,7 @@
             columns: 3;
             column-gap: 2rem;
             padding: 4rem 5%;
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
         }
         .gallery img {
@@ -55,7 +55,8 @@
         .gallery img:hover {
             transform: scale(1.02);
         }
-        /* Modal */
+
+        /* Modal - FIXED for vertical photos + responsive */
         .modal {
             display: none;
             position: fixed;
@@ -64,27 +65,51 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
+            padding: 20px;
         }
         .modal-content {
             background: white;
-            max-width: 900px;
-            width: 90%;
-            padding: 25px;
+            max-width: 95vw;
+            max-height: 95vh;
+            padding: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: auto;
         }
         .modal-content img {
             width: 100%;
             height: auto;
+            max-height: 80vh;           /* Prevents overflow on tall images */
+            object-fit: contain;        /* Keeps full image visible */
             border-radius: 6px;
             margin-bottom: 1.5rem;
         }
         .close {
             position: absolute;
-            top: 25px;
-            right: 35px;
+            top: 15px;
+            right: 25px;
             font-size: 2.8rem;
-            color: white;
+            color: #222;
             cursor: pointer;
+            z-index: 10;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .gallery {
+                columns: 2;
+            }
+            header {
+                padding: 1.5rem 5%;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .gallery {
+                columns: 1;
+            }
         }
     </style>
 </head>
@@ -94,9 +119,7 @@
         <h1>Japan • April 2025</h1>
     </header>
 
-    <div class="gallery" id="gallery">
-        <!-- JS will load photos here -->
-    </div>
+    <div class="gallery" id="gallery"></div>
 
     <div class="modal" id="modal" onclick="if(event.target === this) closeModal()">
         <div class="modal-content" onclick="event.stopImmediatePropagation()">
