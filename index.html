@@ -3,184 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photography</title>
+    <title>Japan • April 2025 | Jonathan's Photography</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500&display=swap');
+
         body {
-            font-family: Georgia, serif;
-            background-color: #f5f0e8; /* vintage paper / off-white */
-            color: #333;
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #ffffff; /* pure white */
+            color: #222;
             margin: 0;
             padding: 0;
-            line-height: 1.6;
         }
         header {
-            background-color: #2c2c2c;
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
         }
-        h1 {
-            font-size: 2.8rem;
-            margin: 0;
-            letter-spacing: 2px;
-        }
-        nav a {
-            color: white;
+        .back {
+            color: #222;
             text-decoration: none;
             font-size: 1.1rem;
-            margin: 0 1rem;
+            font-weight: 500;
         }
-        nav a:hover {
+        .back:hover {
             color: #d4a017;
         }
-        main {
-            max-width: 1100px;
-            margin: 3rem auto;
-            padding: 0 2rem;
-        }
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        .polaroid {
-            background: white;
-            padding: 12px 12px 40px;
-            border: 12px solid #f5f0e8;
-            box-shadow: 10px 10px 15px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease;
-            cursor: pointer;
-        }
-        .polaroid:hover {
-            transform: rotate(2deg) scale(1.03);
-        }
-        .polaroid img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        .polaroid h3 {
-            margin: 15px 0 5px;
-            font-size: 1.3rem;
-            text-align: center;
-            color: #444;
-        }
-        .polaroid p {
-            text-align: center;
-            font-size: 0.95rem;
-            color: #666;
+        h1 {
+            font-family: 'Playfair Display', serif;
             margin: 0;
+            font-size: 2.1rem;
+            font-weight: 400;
+            letter-spacing: -0.5px;
         }
-
+        .gallery {
+            columns: 3;
+            column-gap: 2rem;
+            padding: 4rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .gallery img {
+            width: 100%;
+            margin-bottom: 2rem;
+            border-radius: 6px;
+            display: block;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .gallery img:hover {
+            transform: scale(1.02);
+        }
         /* Modal */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0,0,0,0.85);
-            z-index: 1000;
+            background: rgba(0,0,0,0.92);
             align-items: center;
             justify-content: center;
+            z-index: 1000;
         }
         .modal-content {
             background: white;
-            max-width: 800px;
+            max-width: 900px;
             width: 90%;
-            padding: 20px;
-            border: 15px solid #f5f0e8;
-            box-shadow: 15px 15px 20px rgba(0,0,0,0.3);
-            position: relative;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         .modal-content img {
             width: 100%;
             height: auto;
-        }
-        .modal-content h3 {
-            margin: 15px 0 10px;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
         }
         .close {
             position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 2rem;
+            top: 25px;
+            right: 35px;
+            font-size: 2.8rem;
+            color: white;
             cursor: pointer;
-            color: #333;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Photography</h1>
-        <nav>
-            <a href="#series">Series</a>
-            <a href="mailto:jonathan1brine@gmail.com">Contact Me</a>
-        </nav>
+        <a href="index.html" class="back">← Back to Works</a>
+        <h1>Japan • April 2025</h1>
     </header>
 
-    <main>
-        <section id="series">
-            <h2 style="text-align:center; margin-bottom:2rem; font-size:1.8rem;">Photo Series</h2>
-            
-            <div class="photo-grid" id="photoGrid">
-                <!-- Photos will be added here by JavaScript -->
-            </div>
-        </section>
-    </main>
+    <div class="gallery" id="gallery">
+        <!-- JS will load photos here -->
+    </div>
 
-    <!-- Modal -->
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <img id="modalImage" src="" alt="">
-            <h3 id="modalTitle"></h3>
-            <p id="modalDesc"></p>
+    <div class="modal" id="modal" onclick="if(event.target === this) closeModal()">
+        <div class="modal-content" onclick="event.stopImmediatePropagation()">
+            <span class="close" onclick="closeModal()">×</span>
+            <img id="modalImg" src="" alt="">
+            <h3 id="modalTitle" style="margin:10px 0 8px; font-family:'Playfair Display',serif;"></h3>
+            <p id="modalDesc" style="margin:0; line-height:1.7;"></p>
         </div>
     </div>
 
-    <footer style="text-align:center; padding:2rem; color:#777;">
-        © 2026 Jonathan Brine • All photographs are my own
-    </footer>
-
     <script>
         const photos = [
-            {
-                src: "https://picsum.photos/id/1015/800/600",
-                title: "Japan • April 2025",
-                desc: "Early morning in Kyoto. The cherry blossoms were just starting to fall and the light was perfect."
-            },
-            {
-                src: "https://picsum.photos/id/1016/800/600",
-                title: "Sydney • February 2026",
-                desc: "Golden hour at the harbour. The water was glassy and the Opera House looked incredible in the warm light."
-            },
-            {
-                src: "https://picsum.photos/id/133/800/600",
-                title: "Adelaide Hills • November 2025",
-                desc: "Misty autumn morning in the hills. The colours were changing fast and it felt like the whole landscape was breathing."
-            },
-            {
-                src: "https://picsum.photos/id/201/800/600",
-                title: "Tokyo Streets • April 2025",
-                desc: "Rainy night in Shibuya. The reflections on the wet pavement made everything feel cinematic."
-            }
+            { src: "https://picsum.photos/id/1015/1200/800", title: "Kyoto Morning", desc: "Cherry blossoms just beginning to fall. The light was soft and the streets were quiet." },
+            { src: "https://picsum.photos/id/133/800/1200", title: "Shibuya Crossing", desc: "Rainy night. The reflections made everything feel alive." },
+            { src: "https://picsum.photos/id/201/1400/900", title: "Arashiyama Bamboo", desc: "Early morning before the crowds arrived. The height of the bamboo was humbling." },
+            { src: "https://picsum.photos/id/251/900/1400", title: "Fushimi Inari", desc: "Late afternoon light filtering through the torii gates." },
+            { src: "https://picsum.photos/id/1016/1100/700", title: "Tokyo Rooftop", desc: "Golden hour from a quiet rooftop in Shinjuku." }
         ];
 
-        function createPhotoGrid() {
-            const grid = document.getElementById('photoGrid');
-            photos.forEach((photo, index) => {
-                const div = document.createElement('div');
-                div.className = 'polaroid';
-                div.innerHTML = `
-                    <img src="${photo.src}" alt="${photo.title}">
-                    <h3>${photo.title}</h3>
-                `;
-                div.onclick = () => openModal(photo);
-                grid.appendChild(div);
+        function loadGallery() {
+            const gallery = document.getElementById('gallery');
+            photos.forEach(photo => {
+                const img = document.createElement('img');
+                img.src = photo.src;
+                img.alt = photo.title;
+                img.onclick = () => showModal(photo);
+                gallery.appendChild(img);
             });
         }
 
-        function openModal(photo) {
-            document.getElementById('modalImage').src = photo.src;
+        function showModal(photo) {
+            document.getElementById('modalImg').src = photo.src;
             document.getElementById('modalTitle').textContent = photo.title;
             document.getElementById('modalDesc').textContent = photo.desc;
             document.getElementById('modal').style.display = 'flex';
@@ -190,8 +138,7 @@
             document.getElementById('modal').style.display = 'none';
         }
 
-        // Initialize the grid when page loads
-        window.onload = createPhotoGrid;
+        window.onload = loadGallery;
     </script>
 </body>
 </html>
