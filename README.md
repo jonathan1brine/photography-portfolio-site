@@ -1,17 +1,16 @@
-# Jonathan Brine Photography
+# Photography Portfolio Site
 
-Personal photography portfolio showcasing street, landscape, and travel work from Adelaide, Japan, Sydney, Melbourne and beyond.
+Personal portfolio showcasing street, landscape, and travel photographs from Adelaide, Japan, Sydney, Melbourne.
 
 ## View Live
 [https://jonathan1brine.github.io/photography-portfolio-site](https://jonathan1brine.github.io/photography-portfolio-site)
 
 ## Built With
 - HTML5 + CSS3
-- Vanilla JavaScript (no frameworks)
-- Pure minimalist design
+- Vanilla JavaScript
 
 ## Features
 - Clean landing page with recent highlights
-- Dedicated portfolio page with all series
-- Fast, responsive galleries with lazy loading
+- Dedicated portfolio page with photos grouped by location
+- Four galleries with lazy loading
 - Mobile-friendly
