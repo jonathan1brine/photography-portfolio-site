@@ -1,4 +1,4 @@
-# Jonathan Brine Photography
+# Photography Portfolio Site
 
 Personal portfolio showcasing street, landscape, and travel photographs from Adelaide, Japan, Sydney, Melbourne.
 
