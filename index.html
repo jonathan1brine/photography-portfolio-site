@@ -7,105 +7,27 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500&display=swap');
 
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background-color: #ffffff;
-            color: #222;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            padding: 2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #eee;
-        }
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        .selfie {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        h1 {
-            font-family: 'Playfair Display', serif;
-            margin: 0;
-            font-size: 2.6rem;
-            font-weight: 400;
-            letter-spacing: -1px;
-        }
-        nav a {
-            color: #222;
-            text-decoration: none;
-            margin-left: 2rem;
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
+        body { font-family: 'Inter', system-ui, sans-serif; background-color: #ffffff; color: #222; margin: 0; padding: 0; }
+        header { padding: 2rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; }
+        .header-left { display: flex; align-items: center; gap: 1rem; }
+        .selfie { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
+        h1 { font-family: 'Playfair Display', serif; margin: 0; font-size: 2.6rem; font-weight: 400; letter-spacing: -1px; }
+        nav a { color: #222; text-decoration: none; margin-left: 2rem; font-size: 1.1rem; font-weight: 500; }
         nav a:hover { color: #d4a017; }
 
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 6rem 5% 4rem;
-            background: linear-gradient(to bottom, #f8f5f0, #ffffff);
-        }
-        .hero h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.2rem;
-            margin: 0 0 1rem;
-            font-weight: 400;
-            letter-spacing: -1.5px;
-        }
-        .hero p {
-            max-width: 620px;
-            margin: 0 auto 3rem;
-            font-size: 1.25rem;
-            color: #555;
-            line-height: 1.6;
-        }
+        .hero { text-align: center; padding: 6rem 5% 4rem; background: linear-gradient(to bottom, #f8f5f0, #ffffff); }
+        .hero h2 { font-family: 'Playfair Display', serif; font-size: 3.2rem; margin: 0 0 1rem; font-weight: 400; letter-spacing: -1.5px; }
+        .hero p { max-width: 620px; margin: 0 auto 3rem; font-size: 1.25rem; color: #555; line-height: 1.6; }
 
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 5% 5rem;
-        }
-        h3 {
-            text-align: center;
-            font-size: 1.9rem;
-            margin-bottom: 3rem;
-            font-weight: 400;
-        }
-        .series-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 2.5rem;
-        }
-        .series-card {
-            text-decoration: none;
-            color: inherit;
-        }
-        .series-card img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-        .series-card h4 {
-            font-family: 'Playfair Display', serif;
-            margin: 0 0 0.4rem;
-            font-size: 1.65rem;
-        }
-        .series-card p {
-            margin: 0;
-            color: #666;
-            font-size: 1.05rem;
-        }
+        main { max-width: 1200px; margin: 0 auto; padding: 0 5% 5rem; }
+        h3 { text-align: center; font-size: 1.9rem; margin-bottom: 3rem; font-weight: 400; }
+        .series-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 2.5rem; }
+        .series-card { text-decoration: none; color: inherit; }
+        .series-card img { width: 100%; height: 280px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem; }
+        .series-card h4 { font-family: 'Playfair Display', serif; margin: 0 0 0.4rem; font-size: 1.65rem; }
+        .series-card p { margin: 0; color: #666; font-size: 1.05rem; }
+
+        footer { text-align: center; padding: 3rem 5%; border-top: 1px solid #eee; color: #777; font-size: 0.95rem; }
     </style>
 </head>
 <body>
@@ -128,26 +50,22 @@
 
     <main>
         <h3>Photo Series</h3>
-        
         <div class="series-grid">
             <a href="japan.html" class="series-card">
                 <img src="images/japan/1.jpg" alt="Japan">
                 <h4>Japan • April 2025</h4>
                 <p>Tokyo & Kyoto street scenes</p>
             </a>
-            
             <a href="sydney.html" class="series-card">
                 <img src="images/sydney/1.jpg" alt="Sydney">
                 <h4>Sydney • February 2026</h4>
                 <p>Harbour and coastal light</p>
             </a>
-            
             <a href="melbourne.html" class="series-card">
                 <img src="images/melbourne/1.jpg" alt="Melbourne">
                 <h4>Melbourne • 2025</h4>
                 <p>Laneways and city energy</p>
             </a>
-            
             <a href="adelaide.html" class="series-card">
                 <img src="images/adelaide/1.jpg" alt="Adelaide">
                 <h4>Adelaide • 2025</h4>
@@ -155,5 +73,11 @@
             </a>
         </div>
     </main>
+
+    <footer>
+        © 2026 Jonathan Brine • All photographs are my own
+    </footer>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
