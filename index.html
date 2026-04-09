@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Georgia, serif;
-            background-color: #f5f0e8; /* soft off-white / vintage paper */
+            background-color: #f5f0e8; /* vintage paper / off-white */
             color: #333;
             margin: 0;
             padding: 0;
@@ -24,54 +24,87 @@
             margin: 0;
             letter-spacing: 2px;
         }
-        nav {
-            margin-top: 1.5rem;
-        }
         nav a {
             color: white;
             text-decoration: none;
             font-size: 1.1rem;
             margin: 0 1rem;
-            border-bottom: 2px solid transparent;
         }
         nav a:hover {
-            border-bottom: 2px solid #d4a017;
+            color: #d4a017;
         }
         main {
             max-width: 1100px;
             margin: 3rem auto;
             padding: 0 2rem;
         }
-        .series-grid {
+        .photo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
-        .series-card {
+        .polaroid {
             background: white;
-            padding: 1rem;
-            border: 8px solid #e8e0d4;
-            box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
-            transition: transform 0.2s;
+            padding: 12px 12px 40px;
+            border: 12px solid #f5f0e8;
+            box-shadow: 10px 10px 15px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+            cursor: pointer;
         }
-        .series-card:hover {
-            transform: scale(1.03);
+        .polaroid:hover {
+            transform: rotate(2deg) scale(1.03);
         }
-        .series-card h2 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.4rem;
+        .polaroid img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .polaroid h3 {
+            margin: 15px 0 5px;
+            font-size: 1.3rem;
+            text-align: center;
             color: #444;
         }
-        .series-card p {
-            margin: 0;
+        .polaroid p {
+            text-align: center;
             font-size: 0.95rem;
             color: #666;
+            margin: 0;
         }
-        footer {
-            text-align: center;
-            padding: 2rem;
-            font-size: 0.9rem;
-            color: #777;
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0,0,0,0.85);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: white;
+            max-width: 800px;
+            width: 90%;
+            padding: 20px;
+            border: 15px solid #f5f0e8;
+            box-shadow: 15px 15px 20px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .modal-content img {
+            width: 100%;
+            height: auto;
+        }
+        .modal-content h3 {
+            margin: 15px 0 10px;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #333;
         }
     </style>
 </head>
@@ -88,32 +121,77 @@
         <section id="series">
             <h2 style="text-align:center; margin-bottom:2rem; font-size:1.8rem;">Photo Series</h2>
             
-            <div class="series-grid">
-                <!-- Album 1 -->
-                <div class="series-card">
-                    <h2>Japan • April 2025</h2>
-                    <p>Street scenes and cherry blossoms in Tokyo and Kyoto.</p>
-                </div>
-
-                <!-- Album 2 -->
-                <div class="series-card">
-                    <h2>Sydney • February 2026</h2>
-                    <p>Harbour light and coastal walks.</p>
-                </div>
-
-                <!-- Album 3 -->
-                <div class="series-card">
-                    <h2>Adelaide Hills • November 2025</h2>
-                    <p>Autumn colours and misty mornings.</p>
-                </div>
-
-                <!-- Add more later -->
+            <div class="photo-grid" id="photoGrid">
+                <!-- Photos will be added here by JavaScript -->
             </div>
         </section>
     </main>
 
-    <footer>
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modalImage" src="" alt="">
+            <h3 id="modalTitle"></h3>
+            <p id="modalDesc"></p>
+        </div>
+    </div>
+
+    <footer style="text-align:center; padding:2rem; color:#777;">
         © 2026 Jonathan Brine • All photographs are my own
     </footer>
+
+    <script>
+        const photos = [
+            {
+                src: "https://picsum.photos/id/1015/800/600",
+                title: "Japan • April 2025",
+                desc: "Early morning in Kyoto. The cherry blossoms were just starting to fall and the light was perfect."
+            },
+            {
+                src: "https://picsum.photos/id/1016/800/600",
+                title: "Sydney • February 2026",
+                desc: "Golden hour at the harbour. The water was glassy and the Opera House looked incredible in the warm light."
+            },
+            {
+                src: "https://picsum.photos/id/133/800/600",
+                title: "Adelaide Hills • November 2025",
+                desc: "Misty autumn morning in the hills. The colours were changing fast and it felt like the whole landscape was breathing."
+            },
+            {
+                src: "https://picsum.photos/id/201/800/600",
+                title: "Tokyo Streets • April 2025",
+                desc: "Rainy night in Shibuya. The reflections on the wet pavement made everything feel cinematic."
+            }
+        ];
+
+        function createPhotoGrid() {
+            const grid = document.getElementById('photoGrid');
+            photos.forEach((photo, index) => {
+                const div = document.createElement('div');
+                div.className = 'polaroid';
+                div.innerHTML = `
+                    <img src="${photo.src}" alt="${photo.title}">
+                    <h3>${photo.title}</h3>
+                `;
+                div.onclick = () => openModal(photo);
+                grid.appendChild(div);
+            });
+        }
+
+        function openModal(photo) {
+            document.getElementById('modalImage').src = photo.src;
+            document.getElementById('modalTitle').textContent = photo.title;
+            document.getElementById('modalDesc').textContent = photo.desc;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // Initialize the grid when page loads
+        window.onload = createPhotoGrid;
+    </script>
 </body>
 </html>
