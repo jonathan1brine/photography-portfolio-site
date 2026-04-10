@@ -5,64 +5,273 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio | Jonathan Brine</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
-        body { font-family: 'Inter', system-ui, sans-serif; background-color: #ffffff; color: #222; margin: 0; padding: 0; }
-        header { padding: 2rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; }
-        .header-left { display: flex; align-items: center; gap: 1rem; }
-        .selfie { width: 68px; height: 68px; border-radius: 50%; object-fit: cover; }
-        h1 { font-family: 'Playfair Display', serif; margin: 0; font-size: 2.7rem; font-weight: 400; letter-spacing: -1px; }
-        nav a { color: #222; text-decoration: none; margin-left: 2.2rem; font-size: 1.1rem; font-weight: 500; }
-        nav a:hover { color: #d4a017; }
+        *, *::before, *::after { box-sizing: border-box; }
 
-        main { max-width: 1280px; margin: 5rem auto; padding: 0 5%; }
-        h2 { text-align: center; font-size: 2.3rem; margin-bottom: 4rem; font-weight: 400; letter-spacing: -0.8px; }
-        .series-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 3rem; }
-        .series-card { text-decoration: none; color: inherit; transition: transform 0.3s; }
-        .series-card:hover { transform: translateY(-6px); }
-        .series-card img { width: 100%; height: 300px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem; box-shadow: 0 15px 35px rgba(0,0,0,0.12); }
-        .series-card h3 { font-family: 'Playfair Display', serif; margin: 0 0 0.5rem; font-size: 1.75rem; }
-        .series-card p { margin: 0; color: #666; font-size: 1.05rem; }
+        :root {
+            --bg: #f9f8f6;
+            --fg: #222;
+            --muted: #777;
+            --border: #e8e5e0;
+        }
+
+        body {
+            font-family: 'DM Sans', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--fg);
+            margin: 0;
+            padding: 0;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-size: 128px 128px;
+        }
+
+        /* ── Header ── */
+        header {
+            padding: 1.4rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(249,248,246,0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .selfie {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--border);
+        }
+
+        .site-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: -0.3px;
+            margin: 0;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+        nav a:hover, nav a.active { color: var(--fg); }
+
+        /* ── Page title ── */
+        .page-intro {
+            padding: 5rem 5% 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 4rem;
+        }
+
+        .page-intro h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            margin: 0 0 0.6rem;
+            letter-spacing: -0.8px;
+        }
+
+        .page-intro p {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* ── Series grid ── */
+        .series-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5% 8rem;
+        }
+
+        .series-card {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transition: transform 0.35s ease, box-shadow 0.3s ease;
+        }
+
+        .series-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.14);
+        }
+
+        .series-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease, filter 0.4s ease;
+            filter: brightness(0.85);
+        }
+
+        .series-card:hover img {
+            transform: scale(1.04);
+            filter: brightness(0.7);
+        }
+
+        .card-body {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.6rem 1.2rem 1.1rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 100%);
+            color: #fff;
+        }
+
+        .card-body h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin: 0 0 4px;
+            letter-spacing: -0.2px;
+        }
+
+        .card-body .card-meta {
+            font-size: 0.8rem;
+            opacity: 0.75;
+            letter-spacing: 0.02em;
+            margin: 0;
+        }
+
+        .card-body .card-desc {
+            font-size: 0.85rem;
+            margin: 6px 0 0;
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .series-card:hover .card-desc {
+            opacity: 0.9;
+            transform: translateY(0);
+        }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            padding: 2.5rem 5%;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.82rem;
+            letter-spacing: 0.03em;
+        }
+
+        @media (max-width: 560px) {
+            nav { gap: 1.2rem; }
+            nav a { font-size: 0.8rem; }
+            .series-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
     <header>
-        <div class="header-left">
+        <a href="index.html" class="header-left">
             <img src="images/pfp.jpg" alt="Jonathan Brine" class="selfie">
-            <h1>Jonathan Brine</h1>
-        </div>
+            <p class="site-name">Jonathan Brine</p>
+        </a>
         <nav>
             <a href="index.html">Home</a>
-            <a href="portfolio.html">Portfolio</a>
+            <a href="portfolio.html" class="active">Portfolio</a>
             <a href="about.html">About</a>
-            <a href="mailto:jonathan1brine@gmail.com">Email</a>
+            <a href="mailto:jonathan1brine@gmail.com">Contact</a>
         </nav>
     </header>
 
-    <main>
+    <div class="page-intro">
         <h2>Photo Series</h2>
-        <div class="series-grid">
-            <a href="japan.html" class="series-card">
-                <img src="images/japan/1.jpg" alt="Japan">
-                <h3>Japan - April 2025</h3>
-                <p>My first time overseas</p>
-            </a>
-            <a href="sydney.html" class="series-card">
-                <img src="images/sydney/1.jpg" alt="Sydney">
-                <h3>Sydney - February 2026</h3>
-                <p>My first solo travel</p>
-            </a>
-            <a href="melbourne.html" class="series-card">
-                <img src="images/melbourne/1.jpg" alt="Melbourne">
-                <h3>Melbourne - December 2025</h3>
-                <p>My most visited city</p>
-            </a>
-            <a href="adelaide.html" class="series-card">
-                <img src="images/adelaide/1.jpg" alt="Adelaide">
+        <p>A collection of places I've visited and photographed.</p>
+    </div>
+
+    <div class="series-grid">
+        <!--
+            TO ADD A NEW SERIES:
+            1. Copy one of the <a class="series-card"> blocks below
+            2. Update href, img src, h3 title, date span, and description
+            3. Add the new gallery HTML file (same template as the other city pages)
+            4. Done — the grid auto-fills
+        -->
+        <a href="japan.html" class="series-card">
+            <img src="images/japan/DSC01671.jpg" alt="Japan">
+            <div class="card-body">
+                <h3>Japan</h3>
+                <p class="card-meta">April 2025 · 75 photos</p>
+                <p class="card-desc">My first time overseas</p>
+            </div>
+        </a>
+        <a href="sydney.html" class="series-card">
+            <img src="images/sydney/DSC03253.jpg" alt="Sydney">
+            <div class="card-body">
+                <h3>Sydney</h3>
+                <p class="card-meta">February 2026 · 47 photos</p>
+                <p class="card-desc">My first solo travel</p>
+            </div>
+        </a>
+        <a href="melbourne.html" class="series-card">
+            <img src="images/melbourne/DSC01078.jpg" alt="Melbourne">
+            <div class="card-body">
+                <h3>Melbourne</h3>
+                <p class="card-meta">December 2025 · 14 photos</p>
+                <p class="card-desc">My most visited city</p>
+            </div>
+        </a>
+        <a href="adelaide.html" class="series-card">
+            <img src="images/adelaide/DSC00925.jpg" alt="Adelaide">
+            <div class="card-body">
                 <h3>Adelaide</h3>
-                <p>My hometown</p>
-            </a>
-        </div>
-    </main>
+                <p class="card-meta">2025 · 13 photos</p>
+                <p class="card-desc">My hometown</p>
+            </div>
+        </a>
+    </div>
+
+    <footer>
+        © 2026 Jonathan Brine — All photographs are my own
+    </footer>
 </body>
 </html>
