@@ -5,170 +5,317 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jonathan Brine | Photography</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+        *, *::before, *::after { box-sizing: border-box; }
 
         :root {
-            --accent: #d4a017;
+            --bg: #f9f8f6;
+            --fg: #222;
+            --muted: #777;
+            --border: #e8e5e0;
+            --accent: #222;
         }
 
         body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background-color: #ffffff;
-            color: #222;
+            font-family: 'DM Sans', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--fg);
             margin: 0;
             padding: 0;
             line-height: 1.6;
         }
+
+        /* Grain */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-size: 128px 128px;
+        }
+
+        /* ── Header ── */
         header {
-            padding: 2rem 5%;
+            padding: 1.4rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(249,248,246,0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 100;
         }
+
         .header-left {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.9rem;
+            text-decoration: none;
+            color: inherit;
         }
+
         .selfie {
-            width: 68px;
-            height: 68px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #f8f5f0;
+            border: 2px solid var(--border);
         }
-        h1 {
-            font-family: 'Playfair Display', serif;
-            margin: 0;
-            font-size: 2.75rem;
-            font-weight: 400;
-            letter-spacing: -1.2px;
-        }
-        nav a {
-            color: #222;
-            text-decoration: none;
-            margin-left: 2.2rem;
-            font-size: 1.1rem;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        nav a:hover { color: var(--accent); }
 
-        /* Hero */
-        .hero {
-            text-align: center;
-            padding: 7rem 5% 5rem;
-            background: linear-gradient(to bottom, #f8f5f0, #ffffff);
+        .site-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: -0.3px;
+            margin: 0;
         }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+        nav a:hover, nav a.active { color: var(--fg); }
+
+        /* ── Hero ── */
+        .hero {
+            padding: 9rem 5% 7rem;
+            max-width: 900px;
+            /* left-aligned, not centered */
+        }
+
+        .hero-label {
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 1.4rem;
+        }
+
         .hero h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            margin: 0 0 1.2rem;
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            margin: 0 0 1.6rem;
             font-weight: 400;
-            letter-spacing: -1.8px;
-        }
-        .hero p {
-            max-width: 680px;
-            margin: 0 auto 3rem;
-            font-size: 1.3rem;
-            color: #555;
-            line-height: 1.7;
-        }
-        .cta-button {
-            display: inline-block;
-            background: #222;
-            color: white;
-            padding: 1.1rem 3rem;
-            font-size: 1.15rem;
-            font-weight: 500;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        .cta-button:hover {
-            background: var(--accent);
-            color: #222;
-            transform: translateY(-3px);
+            letter-spacing: -1.5px;
+            line-height: 1.1;
         }
 
-        /* Highlights */
-        .highlights {
-            padding: 5rem 5% 6rem;
+        .hero p {
+            max-width: 520px;
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.75;
+            margin: 0 0 2.8rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--fg);
+            color: #f9f8f6;
+            padding: 0.85rem 2.2rem;
+            font-size: 0.88rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .cta-button:hover { opacity: 0.8; transform: translateY(-1px); }
+
+        /* ── Recent Work ── */
+        .recent {
+            padding: 4rem 5% 8rem;
             max-width: 1400px;
             margin: 0 auto;
         }
-        .highlights h3 {
-            text-align: center;
-            font-size: 1.85rem;
-            margin-bottom: 3.5rem;
-            font-weight: 400;
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2.5rem;
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
         }
+
+        .section-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin: 0;
+        }
+
+        .section-header a {
+            font-size: 0.82rem;
+            color: var(--muted);
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+        .section-header a:hover { color: var(--fg); }
+
+        /* 2×2 grid on desktop, stacks on mobile */
         .highlight-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
         }
+
+        @media (max-width: 700px) {
+            .highlight-grid { grid-template-columns: 1fr; }
+        }
+
         .highlight-card {
             position: relative;
             overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-            transition: transform 0.4s ease;
-        }
-        .highlight-card:hover {
-            transform: scale(1.03);
-        }
-        .highlight-card img {
-            width: 100%;
-            height: 340px;
-            object-fit: cover;
+            border-radius: 6px;
             display: block;
+            text-decoration: none;
+            color: inherit;
         }
 
+        .highlight-card img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+            filter: brightness(0.88);
+        }
+
+        .highlight-card:hover img {
+            transform: scale(1.04);
+            filter: brightness(0.75);
+        }
+
+        .card-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.4rem 1.2rem 1rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+            color: #fff;
+            transition: opacity 0.3s;
+        }
+
+        .card-label h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+            margin: 0 0 2px;
+        }
+
+        .card-label p {
+            margin: 0;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            letter-spacing: 0.02em;
+        }
+
+        /* ── Footer ── */
         footer {
             text-align: center;
-            padding: 3.5rem 5%;
-            border-top: 1px solid #eee;
-            color: #777;
-            font-size: 0.95rem;
+            padding: 2.5rem 5%;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.82rem;
+            letter-spacing: 0.03em;
+        }
+
+        /* ── Mobile nav ── */
+        @media (max-width: 560px) {
+            nav { gap: 1.2rem; }
+            nav a { font-size: 0.8rem; }
+            .hero { padding: 5rem 5% 4rem; }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="header-left">
+        <a href="index.html" class="header-left">
             <img src="images/pfp.jpg" alt="Jonathan Brine" class="selfie">
-            <h1>Jonathan Brine</h1>
-        </div>
+            <p class="site-name">Jonathan Brine</p>
+        </a>
         <nav>
-            <a href="index.html">Home</a>
+            <a href="index.html" class="active">Home</a>
             <a href="portfolio.html">Portfolio</a>
             <a href="about.html">About</a>
-            <a href="mailto:jonathan1brine@gmail.com">Email</a>
+            <a href="mailto:jonathan1brine@gmail.com">Contact</a>
         </nav>
     </header>
 
     <section class="hero">
-        <h2>Capturing moments that matter</h2>
-        <p>Street, landscape, and travel photography from Adelaide, Japan, Sydney, Melbourne and beyond.</p>
-        <a href="portfolio.html" class="cta-button">View Full Portfolio</a>
+        <p class="hero-label">Photography — Adelaide, AU</p>
+        <h2>Capturing quiet<br>everyday moments</h2>
+        <p>Street, landscape, and travel photography from Adelaide, Japan, Sydney, Melbourne, and beyond. Shot on a Sony a6000.</p>
+        <a href="portfolio.html" class="cta-button">View Portfolio</a>
     </section>
 
-    <section class="highlights">
-        <h3>Recent Work</h3>
+    <section class="recent">
+        <div class="section-header">
+            <h3>Recent Series</h3>
+            <a href="portfolio.html">All series →</a>
+        </div>
         <div class="highlight-grid">
-            <div class="highlight-card"><img src="images/japan/1.jpg" alt="Japan"></div>
-            <div class="highlight-card"><img src="images/sydney/1.jpg" alt="Sydney"></div>
-            <div class="highlight-card"><img src="images/melbourne/1.jpg" alt="Melbourne"></div>
-            <div class="highlight-card"><img src="images/adelaide/1.jpg" alt="Adelaide"></div>
+            <!--
+                Replace the src values below with a real photo from each series.
+                These should be whichever image you think best represents that trip.
+                e.g. src="images/japan/DSC01671.jpg"
+            -->
+            <a href="japan.html" class="highlight-card">
+                <img src="images/japan/DSC01671.jpg" alt="Japan">
+                <div class="card-label">
+                    <h4>Japan</h4>
+                    <p>April 2025</p>
+                </div>
+            </a>
+            <a href="sydney.html" class="highlight-card">
+                <img src="images/sydney/DSC03253.jpg" alt="Sydney">
+                <div class="card-label">
+                    <h4>Sydney</h4>
+                    <p>February 2026</p>
+                </div>
+            </a>
+            <a href="melbourne.html" class="highlight-card">
+                <img src="images/melbourne/DSC01078.jpg" alt="Melbourne">
+                <div class="card-label">
+                    <h4>Melbourne</h4>
+                    <p>December 2025</p>
+                </div>
+            </a>
+            <a href="adelaide.html" class="highlight-card">
+                <img src="images/adelaide/DSC00925.jpg" alt="Adelaide">
+                <div class="card-label">
+                    <h4>Adelaide</h4>
+                    <p>2025</p>
+                </div>
+            </a>
         </div>
     </section>
 
     <footer>
         © 2026 Jonathan Brine — All photographs are my own
     </footer>
-
-    <script src="js/script.js"></script>
 </body>
 </html>
