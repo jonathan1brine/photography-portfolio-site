@@ -5,177 +5,140 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sydney • February 2026 | Jonathan's Photography</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500&display=swap');
-
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background-color: #ffffff;
-            color: #222;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            padding: 2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #eee;
-        }
-        .back {
-            color: #222;
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-        .back:hover { color: #d4a017; }
-        h1 {
-            font-family: 'Playfair Display', serif;
-            margin: 0;
-            font-size: 2.1rem;
-            font-weight: 400;
-            letter-spacing: -0.5px;
-        }
-        .gallery {
-            columns: 3;
-            column-gap: 2rem;
-            padding: 4rem 5%;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-        .gallery img {
-            width: 100%;
-            margin-bottom: 2rem;
-            border-radius: 6px;
-            display: block;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        .gallery img:hover { transform: scale(1.02); }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.92);
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            padding: 20px;
-        }
-        .modal-content {
-            background: white;
-            max-width: 95vw;
-            max-height: 95vh;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: auto;
-        }
-        .modal-content img {
-            width: 100%;
-            height: auto;
-            max-height: 80vh;
-            object-fit: contain;
-            border-radius: 6px;
-            margin-bottom: 1.5rem;
-        }
-        .close {
-            position: absolute;
-            top: 15px;
-            right: 25px;
-            font-size: 2.8rem;
-            color: #222;
-            cursor: pointer;
-            z-index: 10;
-        }
-
-        @media (max-width: 768px) { .gallery { columns: 2; } }
-        @media (max-width: 480px) { .gallery { columns: 1; } }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+        *, *::before, *::after { box-sizing: border-box; }
+        body { font-family: 'DM Sans', system-ui, sans-serif; background-color: #f9f8f6; color: #222; margin: 0; padding: 0; }
+        body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 128px 128px; }
+        header { padding: 1.8rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e8e5e0; position: sticky; top: 0; background: rgba(249,248,246,0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 100; }
+        .back { color: #555; text-decoration: none; font-size: 0.9rem; letter-spacing: 0.02em; transition: color 0.2s; }
+        .back:hover { color: #222; }
+        h1 { font-family: 'Playfair Display', serif; margin: 0; font-size: 1.9rem; font-weight: 400; font-style: italic; letter-spacing: -0.3px; }
+        .gallery { column-count: 3; column-gap: 14px; padding: 28px 4%; max-width: 1600px; margin: 0 auto; }
+        .gallery-item { break-inside: avoid; -webkit-column-break-inside: avoid; margin-bottom: 14px; cursor: pointer; border-radius: 6px; overflow: hidden; }
+        .gallery-item img { width: 100%; height: auto; display: block; border-radius: 6px; box-shadow: 0 4px 14px rgba(0,0,0,0.10); transition: transform 0.4s ease, box-shadow 0.3s ease, opacity 0.5s ease, filter 0.5s ease; opacity: 0; filter: blur(6px); }
+        .gallery-item img.loaded { opacity: 1; filter: blur(0); }
+        .gallery-item:hover img { transform: scale(1.025); box-shadow: 0 10px 28px rgba(0,0,0,0.18); }
+        @media (max-width: 900px) { .gallery { column-count: 2; } }
+        @media (max-width: 560px) { .gallery { column-count: 1; } }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(12,12,10,0.93); align-items: center; justify-content: center; z-index: 1000; padding: 16px; }
+        .modal.open { display: flex; }
+        .modal-content { background: #f9f8f6; max-width: 88vw; max-height: 94vh; padding: 20px 24px 22px; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); position: relative; overflow: auto; animation: modalIn 0.22s ease; }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.97) translateY(6px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        .modal-content img { width: 100%; height: auto; max-height: calc(94vh - 110px); object-fit: contain; border-radius: 5px; display: block; }
+        .modal-meta { margin-top: 12px; display: flex; align-items: baseline; gap: 10px; }
+        .modal-meta h3 { margin: 0; font-family: 'Playfair Display', serif; font-weight: 400; font-size: 1rem; }
+        .modal-meta p { margin: 0; font-size: 0.85rem; color: #777; line-height: 1.6; }
+        .close { position: absolute; top: 10px; right: 16px; font-size: 1.8rem; line-height: 1; color: #888; cursor: pointer; background: none; border: none; font-family: inherit; transition: color 0.2s; }
+        .close:hover { color: #222; }
+        .modal-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+        .modal-nav button { background: none; border: 1px solid #ddd; border-radius: 4px; padding: 5px 14px; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; color: #555; cursor: pointer; transition: all 0.2s; }
+        .modal-nav button:hover { background: #222; color: #fff; border-color: #222; }
+        .modal-nav button:disabled { opacity: 0.25; pointer-events: none; }
     </style>
 </head>
 <body>
     <header>
-        <a href="portfolio.html" class="back">← Back to Portfolio</a>
+        <a href="portfolio.html" class="back">← Portfolio</a>
         <h1>Sydney • February 2026</h1>
     </header>
-
     <div class="gallery" id="gallery"></div>
-
-    <div class="modal" id="modal" onclick="if(event.target === this) closeModal()">
-        <div class="modal-content" onclick="event.stopImmediatePropagation()">
-            <span class="close" onclick="closeModal()">×</span>
+    <div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close" onclick="closeModal()">×</button>
             <img id="modalImg" src="" alt="">
-            <h3 id="modalTitle" style="margin:10px 0 8px; font-family:'Playfair Display',serif;"></h3>
-            <p id="modalDesc" style="margin:0; line-height:1.7;"></p>
+            <div class="modal-meta"><h3 id="modalTitle"></h3><p id="modalDesc"></p></div>
+            <div class="modal-nav">
+                <button id="prevBtn" onclick="navigateModal(-1)">← prev</button>
+                <button id="nextBtn" onclick="navigateModal(1)">next →</button>
+            </div>
         </div>
     </div>
-    <script src="js/script.js"></script>
-        <script>
-            const photos = [
-                { src: "images/sydney/DSC00088.jpg", title: "DSC00088", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC00102.jpg", title: "DSC00102", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC00110.jpg", title: "DSC00110", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC00134.jpg", title: "DSC00134", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC00170.jpg", title: "DSC00170", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC00199.jpg", title: "DSC00199", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC00260.jpg", title: "DSC00260", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC00397.jpg", title: "DSC00397", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC00466.jpg", title: "DSC00466", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC00487.jpg", title: "DSC00487", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC00498.jpg", title: "DSC00498", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC00549.jpg", title: "DSC00549", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC00569.jpg", title: "DSC00569", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC00675.jpg", title: "DSC00675", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC00692.jpg", title: "DSC00692", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC02715.jpg", title: "DSC02715", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC02763.jpg", title: "DSC02763", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC02848.jpg", title: "DSC02848", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC02882.jpg", title: "DSC02882", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC02927.jpg", title: "DSC02927", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC02977.jpg", title: "DSC02977", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC02995.jpg", title: "DSC02995", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03117.jpg", title: "DSC03117", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03138.jpg", title: "DSC03138", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03144.jpg", title: "DSC03144", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03150.jpg", title: "DSC03150", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03168.jpg", title: "DSC03168", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03173.jpg", title: "DSC03173", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03179.jpg", title: "DSC03179", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03202.jpg", title: "DSC03202", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03227.jpg", title: "DSC03227", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03241.jpg", title: "DSC03241", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03244.jpg", title: "DSC03244", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03253.jpg", title: "DSC03253", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03264.jpg", title: "DSC03264", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03269.jpg", title: "DSC03269", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03281.jpg", title: "DSC03281", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03286.jpg", title: "DSC03286", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03295.jpg", title: "DSC03295", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03296.jpg", title: "DSC03296", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03300.jpg", title: "DSC03300", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03303.jpg", title: "DSC03303", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03306.jpg", title: "DSC03306", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03339.jpg", title: "DSC03339", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03377.jpg", title: "DSC03377", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03405.jpg", title: "DSC03405", desc: "Placeholder description - edit this later" },
-                { src: "images/sydney/DSC03455.jpg", title: "DSC03455", desc: "Placeholder description - edit this later" },
-            ];
-
-            function loadGallery() {
-                const gallery = document.getElementById('gallery');
-                photos.forEach(photo => {
-                    const img = document.createElement('img');
-                    img.src = photo.src;
-                    img.alt = photo.title;
-                    img.loading = "lazy";
-                    img.decoding = "async";
-                    img.onclick = () => openModal(photo);   // ← Now uses shared function
-                    gallery.appendChild(img);
-                });
-            }
-
-            window.onload = loadGallery;
-        </script>
-
+    <script>
+        const photos = [
+            { src: "images/sydney/DSC00088.jpg", title: "DSC00088", desc: "" },
+            { src: "images/sydney/DSC00102.jpg", title: "DSC00102", desc: "" },
+            { src: "images/sydney/DSC00110.jpg", title: "DSC00110", desc: "" },
+            { src: "images/sydney/DSC00134.jpg", title: "DSC00134", desc: "" },
+            { src: "images/sydney/DSC00170.jpg", title: "DSC00170", desc: "" },
+            { src: "images/sydney/DSC00199.jpg", title: "DSC00199", desc: "" },
+            { src: "images/sydney/DSC00260.jpg", title: "DSC00260", desc: "" },
+            { src: "images/sydney/DSC00397.jpg", title: "DSC00397", desc: "" },
+            { src: "images/sydney/DSC00466.jpg", title: "DSC00466", desc: "" },
+            { src: "images/sydney/DSC00487.jpg", title: "DSC00487", desc: "" },
+            { src: "images/sydney/DSC00498.jpg", title: "DSC00498", desc: "" },
+            { src: "images/sydney/DSC00549.jpg", title: "DSC00549", desc: "" },
+            { src: "images/sydney/DSC00569.jpg", title: "DSC00569", desc: "" },
+            { src: "images/sydney/DSC00675.jpg", title: "DSC00675", desc: "" },
+            { src: "images/sydney/DSC00692.jpg", title: "DSC00692", desc: "" },
+            { src: "images/sydney/DSC02715.jpg", title: "DSC02715", desc: "" },
+            { src: "images/sydney/DSC02763.jpg", title: "DSC02763", desc: "" },
+            { src: "images/sydney/DSC02848.jpg", title: "DSC02848", desc: "" },
+            { src: "images/sydney/DSC02882.jpg", title: "DSC02882", desc: "" },
+            { src: "images/sydney/DSC02927.jpg", title: "DSC02927", desc: "" },
+            { src: "images/sydney/DSC02977.jpg", title: "DSC02977", desc: "" },
+            { src: "images/sydney/DSC02995.jpg", title: "DSC02995", desc: "" },
+            { src: "images/sydney/DSC03117.jpg", title: "DSC03117", desc: "" },
+            { src: "images/sydney/DSC03138.jpg", title: "DSC03138", desc: "" },
+            { src: "images/sydney/DSC03144.jpg", title: "DSC03144", desc: "" },
+            { src: "images/sydney/DSC03150.jpg", title: "DSC03150", desc: "" },
+            { src: "images/sydney/DSC03168.jpg", title: "DSC03168", desc: "" },
+            { src: "images/sydney/DSC03173.jpg", title: "DSC03173", desc: "" },
+            { src: "images/sydney/DSC03179.jpg", title: "DSC03179", desc: "" },
+            { src: "images/sydney/DSC03202.jpg", title: "DSC03202", desc: "" },
+            { src: "images/sydney/DSC03227.jpg", title: "DSC03227", desc: "" },
+            { src: "images/sydney/DSC03241.jpg", title: "DSC03241", desc: "" },
+            { src: "images/sydney/DSC03244.jpg", title: "DSC03244", desc: "" },
+            { src: "images/sydney/DSC03253.jpg", title: "DSC03253", desc: "" },
+            { src: "images/sydney/DSC03264.jpg", title: "DSC03264", desc: "" },
+            { src: "images/sydney/DSC03269.jpg", title: "DSC03269", desc: "" },
+            { src: "images/sydney/DSC03281.jpg", title: "DSC03281", desc: "" },
+            { src: "images/sydney/DSC03286.jpg", title: "DSC03286", desc: "" },
+            { src: "images/sydney/DSC03295.jpg", title: "DSC03295", desc: "" },
+            { src: "images/sydney/DSC03296.jpg", title: "DSC03296", desc: "" },
+            { src: "images/sydney/DSC03300.jpg", title: "DSC03300", desc: "" },
+            { src: "images/sydney/DSC03303.jpg", title: "DSC03303", desc: "" },
+            { src: "images/sydney/DSC03306.jpg", title: "DSC03306", desc: "" },
+            { src: "images/sydney/DSC03339.jpg", title: "DSC03339", desc: "" },
+            { src: "images/sydney/DSC03377.jpg", title: "DSC03377", desc: "" },
+            { src: "images/sydney/DSC03405.jpg", title: "DSC03405", desc: "" },
+            { src: "images/sydney/DSC03455.jpg", title: "DSC03455", desc: "" },
+        ];
+        let currentIndex = 0;
+        function loadGallery() {
+            const gallery = document.getElementById('gallery');
+            photos.forEach((photo, i) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                const img = document.createElement('img');
+                img.alt = photo.title; img.loading = 'lazy'; img.decoding = 'async';
+                img.onload = () => img.classList.add('loaded');
+                img.onerror = () => img.classList.add('loaded');
+                img.onclick = () => showModal(i);
+                img.src = photo.src;
+                item.appendChild(img); gallery.appendChild(item);
+            });
+        }
+        function showModal(index) {
+            currentIndex = index;
+            const p = photos[index];
+            document.getElementById('modalImg').src = p.src;
+            document.getElementById('modalImg').alt = p.title;
+            document.getElementById('modalTitle').textContent = p.title;
+            document.getElementById('modalDesc').textContent = p.desc;
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').disabled = index === photos.length - 1;
+            document.getElementById('modal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() { document.getElementById('modal').classList.remove('open'); document.body.style.overflow = ''; }
+        function navigateModal(dir) { const n = currentIndex + dir; if (n >= 0 && n < photos.length) showModal(n); }
+        document.addEventListener('keydown', e => {
+            if (!document.getElementById('modal').classList.contains('open')) return;
+            if (e.key === 'Escape') closeModal();
+            if (e.key === 'ArrowLeft') navigateModal(-1);
+            if (e.key === 'ArrowRight') navigateModal(1);
+        });
+        window.onload = loadGallery;
+    </script>
 </body>
 </html>
