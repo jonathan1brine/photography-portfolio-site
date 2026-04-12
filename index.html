@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jonathan Brine | Photography</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
         *, *::before, *::after { box-sizing: border-box; }
 
         :root {
             --bg: #f9f8f6;
             --fg: #222;
-            --muted: #777;
+            --muted: #888;
             --border: #e8e5e0;
-            --accent: #222;
         }
 
         body {
@@ -26,14 +25,13 @@
             line-height: 1.6;
         }
 
-        /* Grain */
         body::before {
             content: '';
             position: fixed;
             inset: 0;
             pointer-events: none;
             z-index: 9999;
-            opacity: 0.025;
+            opacity: 0.03;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
             background-size: 128px 128px;
         }
@@ -62,8 +60,8 @@
         }
 
         .selfie {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--border);
@@ -71,79 +69,101 @@
 
         .site-name {
             font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 400;
-            letter-spacing: -0.3px;
             margin: 0;
         }
 
         nav {
             display: flex;
-            align-items: center;
             gap: 2rem;
         }
 
         nav a {
             color: var(--muted);
             text-decoration: none;
-            font-size: 0.88rem;
-            font-weight: 400;
-            letter-spacing: 0.04em;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
             transition: color 0.2s;
         }
         nav a:hover, nav a.active { color: var(--fg); }
 
         /* ── Hero ── */
-        .hero {
-            padding: 9rem 5% 7rem;
-            max-width: 900px;
-            /* left-aligned, not centered */
+        .hero-wrap {
+            position: relative;
+            min-height: calc(60vh - 73px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(ellipse 80% 60% at 50% 40%, #ede9e1 0%, #f9f8f6 70%);
         }
 
-        .hero-label {
-            font-size: 0.8rem;
-            letter-spacing: 0.12em;
+        .hero {
+            text-align: center;
+            padding: 4rem 5%;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.75rem;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
             color: var(--muted);
-            margin-bottom: 1.4rem;
+            margin: 0 0 2rem;
         }
 
         .hero h2 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(2.8rem, 6vw, 5rem);
-            margin: 0 0 1.6rem;
+            font-size: clamp(2.8rem, 7vw, 5rem);
             font-weight: 400;
-            letter-spacing: -1.5px;
+            font-style: italic;
             line-height: 1.1;
+            letter-spacing: -1px;
+            margin: 0 0 1.6rem;
         }
 
-        .hero p {
-            max-width: 520px;
-            font-size: 1.05rem;
-            color: #555;
+        .hero-sub {
+            font-size: 0.97rem;
+            color: #777;
+            max-width: 340px;
+            margin: 0 auto 3rem;
             line-height: 1.75;
-            margin: 0 0 2.8rem;
         }
 
         .cta-button {
             display: inline-block;
-            background: var(--fg);
-            color: #f9f8f6;
-            padding: 0.85rem 2.2rem;
-            font-size: 0.88rem;
-            font-weight: 500;
-            letter-spacing: 0.05em;
+            border: 1px solid #bbb;
+            color: var(--fg);
+            padding: 0.72rem 1.9rem;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.07em;
             text-transform: uppercase;
-            border-radius: 4px;
             text-decoration: none;
-            transition: opacity 0.2s, transform 0.2s;
+            border-radius: 3px;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
         }
-        .cta-button:hover { opacity: 0.8; transform: translateY(-1px); }
+        .cta-button:hover {
+            background: var(--fg);
+            color: var(--bg);
+            border-color: var(--fg);
+        }
 
-        /* ── Recent Work ── */
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            opacity: 0.5;
+        }
+
+        /* ── Recent series ── */
         .recent {
-            padding: 4rem 5% 8rem;
+            padding: 2rem 5% 7rem;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -152,20 +172,20 @@
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2.4rem;
             border-top: 1px solid var(--border);
             padding-top: 2rem;
         }
 
         .section-header h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 400;
             margin: 0;
         }
 
         .section-header a {
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             color: var(--muted);
             text-decoration: none;
             letter-spacing: 0.04em;
@@ -174,15 +194,10 @@
         }
         .section-header a:hover { color: var(--fg); }
 
-        /* 2×2 grid on desktop, stacks on mobile */
         .highlight-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-        }
-
-        @media (max-width: 700px) {
-            .highlight-grid { grid-template-columns: 1fr; }
+            gap: 14px;
         }
 
         .highlight-card {
@@ -191,21 +206,21 @@
             border-radius: 6px;
             display: block;
             text-decoration: none;
-            color: inherit;
+            aspect-ratio: 4/3;
         }
 
         .highlight-card img {
             width: 100%;
-            height: 320px;
+            height: 100%;
             object-fit: cover;
             display: block;
-            transition: transform 0.5s ease;
-            filter: brightness(0.88);
+            transition: transform 0.5s ease, filter 0.4s ease;
+            filter: brightness(0.82);
         }
 
         .highlight-card:hover img {
             transform: scale(1.04);
-            filter: brightness(0.75);
+            filter: brightness(0.65);
         }
 
         .card-label {
@@ -213,41 +228,38 @@
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 1.4rem 1.2rem 1rem;
+            padding: 1.6rem 1.2rem 1rem;
             background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
             color: #fff;
-            transition: opacity 0.3s;
         }
 
         .card-label h4 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 400;
             margin: 0 0 2px;
         }
 
         .card-label p {
             margin: 0;
-            font-size: 0.8rem;
-            opacity: 0.8;
-            letter-spacing: 0.02em;
+            font-size: 0.78rem;
+            opacity: 0.75;
         }
 
         /* ── Footer ── */
         footer {
             text-align: center;
-            padding: 2.5rem 5%;
+            padding: 2.4rem 5%;
             border-top: 1px solid var(--border);
             color: var(--muted);
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             letter-spacing: 0.03em;
         }
 
-        /* ── Mobile nav ── */
-        @media (max-width: 560px) {
+        @media (max-width: 700px) {
+            .highlight-grid { grid-template-columns: 1fr; }
             nav { gap: 1.2rem; }
-            nav a { font-size: 0.8rem; }
-            .hero { padding: 5rem 5% 4rem; }
+            nav a { font-size: 0.78rem; }
         }
     </style>
 </head>
@@ -265,12 +277,14 @@
         </nav>
     </header>
 
-    <section class="hero">
-        <p class="hero-label">Photography — Adelaide, AU</p>
-        <h2>Capturing quiet<br>everyday moments</h2>
-        <p>Street, landscape, and travel photography from Adelaide, Japan, Sydney, Melbourne, and beyond. Shot on a Sony a6000.</p>
-        <a href="portfolio.html" class="cta-button">View Portfolio</a>
-    </section>
+    <div class="hero-wrap">
+        <div class="hero">
+            <p class="hero-eyebrow">Adelaide, AU</p>
+            <h2>Welcome</h2>
+            <p class="hero-sub">This site is a collection of my photos, shot on a sony a6000.</p>
+            <a href="portfolio.html" class="cta-button">View Portfolio</a>
+        </div>
+    </div>
 
     <section class="recent">
         <div class="section-header">
@@ -278,38 +292,22 @@
             <a href="portfolio.html">All series →</a>
         </div>
         <div class="highlight-grid">
-            <!--
-                Replace the src values below with a real photo from each series.
-                These should be whichever image you think best represents that trip.
-                e.g. src="images/japan/DSC01671.jpg"
-            -->
+            <!-- Update src to whichever photo you want as the cover for each series -->
             <a href="japan.html" class="highlight-card">
                 <img src="images/japan/DSC01770.jpg" alt="Japan">
-                <div class="card-label">
-                    <h4>Japan</h4>
-                    <p>April 2025</p>
-                </div>
+                <div class="card-label"><h4>Japan</h4><p>April 2025</p></div>
             </a>
             <a href="sydney.html" class="highlight-card">
                 <img src="images/sydney/DSC00675.jpg" alt="Sydney">
-                <div class="card-label">
-                    <h4>Sydney</h4>
-                    <p>February 2026</p>
-                </div>
+                <div class="card-label"><h4>Sydney</h4><p>February 2026</p></div>
             </a>
             <a href="melbourne.html" class="highlight-card">
                 <img src="images/melbourne/DSC01156.jpg" alt="Melbourne">
-                <div class="card-label">
-                    <h4>Melbourne</h4>
-                    <p>December 2025</p>
-                </div>
+                <div class="card-label"><h4>Melbourne</h4><p>December 2025</p></div>
             </a>
             <a href="adelaide.html" class="highlight-card">
                 <img src="images/adelaide/DSC02386.jpg" alt="Adelaide">
-                <div class="card-label">
-                    <h4>Adelaide</h4>
-                    <p>2007-Present</p>
-                </div>
+                <div class="card-label"><h4>Adelaide</h4><p>2025</p></div>
             </a>
         </div>
     </section>
