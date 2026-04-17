@@ -3,289 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adelaide • 2025 | Jonathan's Photography</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap');
-
-        *, *::before, *::after { box-sizing: border-box; }
-
-        body {
-            font-family: 'DM Sans', system-ui, sans-serif;
-            background-color: #f9f8f6;
-            color: #222;
-            margin: 0;
-            padding: 0;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.025;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            background-size: 128px 128px;
-        }
-
-        header {
-            padding: 1.8rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #e8e5e0;
-            position: sticky;
-            top: 0;
-            background: rgba(249,248,246,0.92);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 100;
-        }
-
-        .back {
-            color: #555;
-            text-decoration: none;
-            font-size: 0.9rem;
-            letter-spacing: 0.02em;
-            transition: color 0.2s;
-        }
-        .back:hover { color: #222; }
-
-        h1 {
-            font-family: 'Playfair Display', serif;
-            margin: 0;
-            font-size: 1.9rem;
-            font-weight: 400;
-            letter-spacing: -0.3px;
-        }
-
-        /* CSS columns masonry — images flow naturally into columns,
-           each at full width of the column, heights determined by aspect ratio.
-           This is literally how your original layout worked, just cleaned up. */
-        .gallery {
-            column-count: 3;
-            column-gap: 14px;
-            padding: 28px 4%;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-
-        .gallery-item {
-            break-inside: avoid;
-            -webkit-column-break-inside: avoid;
-            margin-bottom: 14px;
-            cursor: pointer;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 6px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.10);
-            transition: transform 0.4s ease, box-shadow 0.3s ease, opacity 0.5s ease, filter 0.5s ease;
-            opacity: 0;
-            filter: blur(6px);
-        }
-
-        .gallery-item img.loaded {
-            opacity: 1;
-            filter: blur(0);
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.025);
-            box-shadow: 0 10px 28px rgba(0,0,0,0.18);
-        }
-
-        @media (max-width: 900px) {
-            .gallery { column-count: 2; }
-        }
-        @media (max-width: 560px) {
-            .gallery { column-count: 1; }
-        }
-
-        /* ── Modal ── */
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(12,12,10,0.93);
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            padding: 16px;
-        }
-        .modal.open { display: flex; }
-
-        .modal-content {
-            background: #f9f8f6;
-            max-width: 88vw;
-            max-height: 94vh;
-            padding: 20px 24px 22px;
-            border-radius: 8px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            position: relative;
-            overflow: auto;
-            animation: modalIn 0.22s ease;
-        }
-
-        @keyframes modalIn {
-            from { opacity: 0; transform: scale(0.97) translateY(6px); }
-            to   { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .modal-content img {
-            width: 100%;
-            height: auto;
-            max-height: calc(94vh - 110px);
-            object-fit: contain;
-            border-radius: 5px;
-            display: block;
-        }
-
-        .modal-meta {
-            margin-top: 16px;
-            text-align: center;
-        }
-        .modal-meta h3 {
-            display: none;
-        }
-        .modal-meta p {
-            margin: 0;
-            font-size: 1.3rem;
-            color: #444;
-            line-height: 1.7;
-            max-width: 50ch;
-            word-wrap: break-word;
-        }
-
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 16px;
-            font-size: 1.8rem;
-            line-height: 1;
-            color: #888;
-            cursor: pointer;
-            background: none;
-            border: none;
-            font-family: inherit;
-            transition: color 0.2s;
-        }
-        .close:hover { color: #222; }
-
-        .modal-nav {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 12px;
-        }
-        .modal-nav button {
-            background: none;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 5px 14px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.82rem;
-            color: #555;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .modal-nav button:hover { background: #222; color: #fff; border-color: #222; }
-        .modal-nav button:disabled { opacity: 0.25; pointer-events: none; }
-    </style>
+    <meta name="description" content="Adelaide — 2024 to present. Street and everyday photography by Jonathan Brine, shot around his home city.">
+    <meta property="og:title" content="Adelaide | Jonathan Brine Photography">
+    <meta property="og:description" content="Street and everyday photography from Adelaide, South Australia. 2024–present.">
+    <meta property="og:image" content="images/adelaide/DSC02386.jpg">
+    <meta property="og:type" content="website">
+    <title>Adelaide | Jonathan Brine</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23222' rx='3'/%3E%3Ctext x='50%25' y='54%25' font-size='13' dominant-baseline='central' text-anchor='middle' fill='%23f9f8f6' font-family='Georgia%2Cserif' font-style='italic'%3EJB%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/gallery.css">
 </head>
 <body>
-    <header>
-        <a href="index.html" class="back">← Portfolio</a>
-        <h1>Adelaide</h1>
+    <header class="gallery-page-header">
+        <a href="portfolio.html" class="back">&larr; Portfolio</a>
+        <div class="gallery-header-title">
+            <h1>Adelaide</h1>
+            <small>2024&ndash;Present</small>
+        </div>
+        <span class="photo-count" id="photoCount"></span>
     </header>
 
     <div class="gallery" id="gallery"></div>
 
     <div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="close" onclick="closeModal()">×</button>
+            <button class="close" onclick="closeModal()" aria-label="Close lightbox">&times;</button>
             <img id="modalImg" src="" alt="">
             <div class="modal-meta">
                 <h3 id="modalTitle"></h3>
                 <p id="modalDesc"></p>
             </div>
             <div class="modal-nav">
-                <button id="prevBtn" onclick="navigateModal(-1)">← prev</button>
-                <button id="nextBtn" onclick="navigateModal(1)">next →</button>
+                <button id="prevBtn" onclick="navigateModal(-1)" aria-label="Previous photo">&larr; prev</button>
+                <span id="modalCounter" class="modal-counter"></span>
+                <button id="nextBtn" onclick="navigateModal(1)" aria-label="Next photo">next &rarr;</button>
             </div>
         </div>
     </div>
 
+    <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top">&#8593;</button>
+
+    <script src="js/gallery.js"></script>
     <script>
+        // Adelaide order is intentional — curated, not sorted by date.
         const photos = [
-            { src: "images/adelaide/DSC00925.jpg",  title: "DSC00925", desc: "My pet bird Charlie in front of my bedroom door. I took this image to capture a habit he has of waiting by the door for me to let him in." },
-            { src: "images/adelaide/DSC00950.jpg",  title: "DSC00950", desc: "" },
-            { src: "images/adelaide/DSC01403.JPG",  title: "DSC01403", desc: "" },
-            { src: "images/adelaide/DSC02092.JPG",  title: "DSC02092", desc: "" },
-            { src: "images/adelaide/DSC02120.JPG",  title: "DSC02120", desc: "" },
-            { src: "images/adelaide/DSC02257.JPG",  title: "DSC02257", desc: "" },
-            { src: "images/adelaide/DSC02386.jpg",  title: "DSC02386", desc: "" },
-            { src: "images/adelaide/DSC02424.jpg",  title: "DSC02424", desc: "" },
-            { src: "images/adelaide/DSC02439.jpg",  title: "DSC02439", desc: "" }
+            { src: "images/adelaide/DSC00925.jpg", title: "DSC00925", desc: "My pet bird Charlie waiting by the door — a habit he has of sitting there until I let him in." },
+            { src: "images/adelaide/DSC00950.jpg", title: "DSC00950", desc: "" },
+            { src: "images/adelaide/DSC01403.JPG", title: "DSC01403", desc: "" },
+            { src: "images/adelaide/DSC02092.JPG", title: "DSC02092", desc: "" },
+            { src: "images/adelaide/DSC02120.JPG", title: "DSC02120", desc: "" },
+            { src: "images/adelaide/DSC02257.JPG", title: "DSC02257", desc: "" },
+            { src: "images/adelaide/DSC02386.jpg", title: "DSC02386", desc: "" },
+            { src: "images/adelaide/DSC02424.jpg", title: "DSC02424", desc: "" },
+            { src: "images/adelaide/DSC02439.jpg", title: "DSC02439", desc: "" },
         ];
 
-        let currentIndex = 0;
-
-        function loadGallery() {
-            const gallery = document.getElementById('gallery');
-            photos.forEach((photo, i) => {
-                const item = document.createElement('div');
-                item.className = 'gallery-item';
-
-                const img = document.createElement('img');
-                img.alt = photo.title;
-                img.loading = 'lazy';
-                img.decoding = 'async';
-                img.onload = () => img.classList.add('loaded');
-                img.onerror = () => img.classList.add('loaded');
-                img.onclick = () => showModal(i);
-                img.src = photo.src;
-
-                item.appendChild(img);
-                gallery.appendChild(item);
-            });
-        }
-
-        function showModal(index) {
-            currentIndex = index;
-            const p = photos[index];
-            document.getElementById('modalImg').src = p.src;
-            document.getElementById('modalImg').alt = p.title;
-            document.getElementById('modalTitle').textContent = p.title;
-            document.getElementById('modalDesc').textContent = p.desc;
-            document.getElementById('prevBtn').disabled = index === 0;
-            document.getElementById('nextBtn').disabled = index === photos.length - 1;
-            document.getElementById('modal').classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            document.getElementById('modal').classList.remove('open');
-            document.body.style.overflow = '';
-        }
-
-        function navigateModal(dir) {
-            const next = currentIndex + dir;
-            if (next >= 0 && next < photos.length) showModal(next);
-        }
-
-        document.addEventListener('keydown', e => {
-            if (!document.getElementById('modal').classList.contains('open')) return;
-            if (e.key === 'Escape') closeModal();
-            if (e.key === 'ArrowLeft') navigateModal(-1);
-            if (e.key === 'ArrowRight') navigateModal(1);
-        });
-
-        window.onload = loadGallery;
+        initGallery(photos);
     </script>
 </body>
 </html>

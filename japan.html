@@ -3,332 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Japan - April 2025 | Jonathan's Photography</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap');
-
-        *, *::before, *::after { box-sizing: border-box; }
-
-        body {
-            font-family: 'DM Sans', system-ui, sans-serif;
-            background-color: #f9f8f6;
-            color: #222;
-            margin: 0;
-            padding: 0;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.025;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            background-size: 128px 128px;
-        }
-
-        header {
-            padding: 1.8rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #e8e5e0;
-            position: sticky;
-            top: 0;
-            background: rgba(249,248,246,0.92);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 100;
-        }
-
-        .back {
-            color: #555;
-            text-decoration: none;
-            font-size: 0.9rem;
-            letter-spacing: 0.02em;
-            transition: color 0.2s;
-        }
-        .back:hover { color: #222; }
-
-        h1 {
-            font-family: 'Playfair Display', serif;
-            margin: 0;
-            font-size: 1.9rem;
-            font-weight: 400;
-            letter-spacing: -0.3px;
-        }
-
-        /* CSS columns masonry — images flow naturally into columns,
-           each at full width of the column, heights determined by aspect ratio.
-           This is literally how your original layout worked, just cleaned up. */
-        .gallery {
-            column-count: 3;
-            column-gap: 14px;
-            padding: 28px 4%;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-
-        .gallery-item {
-            break-inside: avoid;
-            -webkit-column-break-inside: avoid;
-            margin-bottom: 14px;
-            cursor: pointer;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 6px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.10);
-            transition: transform 0.4s ease, box-shadow 0.3s ease, opacity 0.5s ease, filter 0.5s ease;
-            opacity: 0;
-            filter: blur(6px);
-        }
-
-        .gallery-item img.loaded {
-            opacity: 1;
-            filter: blur(0);
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.025);
-            box-shadow: 0 10px 28px rgba(0,0,0,0.18);
-        }
-
-        @media (max-width: 900px) {
-            .gallery { column-count: 2; }
-        }
-        @media (max-width: 560px) {
-            .gallery { column-count: 1; }
-        }
-
-        /* ── Modal ── */
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(12,12,10,0.93);
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            padding: 16px;
-        }
-        .modal.open { display: flex; }
-
-        .modal-content {
-            background: #f9f8f6;
-            max-width: 88vw;
-            max-height: 94vh;
-            padding: 20px 24px 22px;
-            border-radius: 8px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            position: relative;
-            overflow: auto;
-            animation: modalIn 0.22s ease;
-        }
-
-        @keyframes modalIn {
-            from { opacity: 0; transform: scale(0.97) translateY(6px); }
-            to   { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .modal-content img {
-            width: 100%;
-            height: auto;
-            max-height: calc(94vh - 110px);
-            object-fit: contain;
-            border-radius: 5px;
-            display: block;
-        }
-
-        .modal-meta {
-            margin-top: 16px;
-            text-align: center;
-        }
-        .modal-meta h3 {
-            display: none;
-        }
-        .modal-meta p {
-            margin: 0;
-            font-size: 1.3rem;
-            color: #444;
-            line-height: 1.7;
-            max-width: 50ch;
-            word-wrap: break-word;
-        }
-
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 16px;
-            font-size: 1.8rem;
-            line-height: 1;
-            color: #888;
-            cursor: pointer;
-            background: none;
-            border: none;
-            font-family: inherit;
-            transition: color 0.2s;
-        }
-        .close:hover { color: #222; }
-
-        .modal-nav {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 12px;
-        }
-        .modal-nav button {
-            background: none;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 5px 14px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.82rem;
-            color: #555;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .modal-nav button:hover { background: #222; color: #fff; border-color: #222; }
-        .modal-nav button:disabled { opacity: 0.25; pointer-events: none; }
-    </style>
+    <meta name="description" content="Japan — April 2025. 76 photos of street and travel photography by Jonathan Brine.">
+    <meta property="og:title" content="Japan — April 2025 | Jonathan Brine Photography">
+    <meta property="og:description" content="76 photos from Japan, April 2025. Shot on a Sony a6000.">
+    <meta property="og:image" content="images/japan/DSC01770.jpg">
+    <meta property="og:type" content="website">
+    <title>Japan &mdash; April 2025 | Jonathan Brine</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23222' rx='3'/%3E%3Ctext x='50%25' y='54%25' font-size='13' dominant-baseline='central' text-anchor='middle' fill='%23f9f8f6' font-family='Georgia%2Cserif' font-style='italic'%3EJB%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/gallery.css">
 </head>
 <body>
-    <header>
-        <a href="portfolio.html" class="back">← Portfolio</a>
-        <h1>Japan - April 2025</h1>
+    <header class="gallery-page-header">
+        <a href="portfolio.html" class="back">&larr; Portfolio</a>
+        <div class="gallery-header-title">
+            <h1>Japan</h1>
+            <small>April 2025</small>
+        </div>
+        <span class="photo-count" id="photoCount"></span>
     </header>
+
     <div class="gallery" id="gallery"></div>
+
     <div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="close" onclick="closeModal()">×</button>
+            <button class="close" onclick="closeModal()" aria-label="Close lightbox">&times;</button>
             <img id="modalImg" src="" alt="">
-            <div class="modal-meta"><h3 id="modalTitle"></h3><p id="modalDesc"></p></div>
+            <div class="modal-meta">
+                <h3 id="modalTitle"></h3>
+                <p id="modalDesc"></p>
+            </div>
             <div class="modal-nav">
-                <button id="prevBtn" onclick="navigateModal(-1)">← prev</button>
-                <button id="nextBtn" onclick="navigateModal(1)">next →</button>
+                <button id="prevBtn" onclick="navigateModal(-1)" aria-label="Previous photo">&larr; prev</button>
+                <span id="modalCounter" class="modal-counter"></span>
+                <button id="nextBtn" onclick="navigateModal(1)" aria-label="Next photo">next &rarr;</button>
             </div>
         </div>
     </div>
+
+    <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top">&#8593;</button>
+
+    <script src="js/gallery.js"></script>
     <script>
+        // Photos ordered by DSC number descending (most recent first).
+        // DSC numbers are sequential from the camera — higher = taken later.
         const photos = [
-            { src: "images/japan/DSC01579.jpg", title: "DSC01579", desc: "" },
-            { src: "images/japan/DSC01586.jpg", title: "DSC01586", desc: "" },
-            { src: "images/japan/DSC01590.jpg", title: "DSC01590", desc: "" },
-            { src: "images/japan/DSC01605.jpg", title: "DSC01605", desc: "" },
-            { src: "images/japan/DSC01626.jpg", title: "DSC01626", desc: "" },
-            { src: "images/japan/DSC01635.jpg", title: "DSC01635", desc: "" },
-            { src: "images/japan/DSC01648.jpg", title: "DSC01648", desc: "" },
-            { src: "images/japan/DSC01652.jpg", title: "DSC01652", desc: "" },
-            { src: "images/japan/DSC01654.jpg", title: "DSC01654", desc: "" },
-            { src: "images/japan/DSC01655.jpg", title: "DSC01655", desc: "" },
-            { src: "images/japan/DSC01660.jpg", title: "DSC01660", desc: "" },
-            { src: "images/japan/DSC01671.jpg", title: "DSC01671", desc: "" },
-            { src: "images/japan/DSC01676.jpg", title: "DSC01676", desc: "" },
-            { src: "images/japan/DSC01689.jpg", title: "DSC01689", desc: "" },
-            { src: "images/japan/DSC01691.jpg", title: "DSC01691", desc: "" },
-            { src: "images/japan/DSC01700.jpg", title: "DSC01700", desc: "" },
-            { src: "images/japan/DSC01709.jpg", title: "DSC01709", desc: "" },
-            { src: "images/japan/DSC01736.jpg", title: "DSC01736", desc: "" },
-            { src: "images/japan/DSC01737.jpg", title: "DSC01737", desc: "" },
-            { src: "images/japan/DSC01740.jpg", title: "DSC01740", desc: "" },
-            { src: "images/japan/DSC01747.jpg", title: "DSC01747", desc: "" },
-            { src: "images/japan/DSC01750.jpg", title: "DSC01750", desc: "" },
-            { src: "images/japan/DSC01760.jpg", title: "DSC01760", desc: "" },
-            { src: "images/japan/DSC01763.jpg", title: "DSC01763", desc: "" },
-            { src: "images/japan/DSC01770.jpg", title: "DSC01770", desc: "" },
-            { src: "images/japan/DSC01775.jpg", title: "DSC01775", desc: "" },
-            { src: "images/japan/DSC01784.jpg", title: "DSC01784", desc: "" },
-            { src: "images/japan/DSC01788.jpg", title: "DSC01788", desc: "" },
-            { src: "images/japan/DSC01792.jpg", title: "DSC01792", desc: "" },
-            { src: "images/japan/DSC01794.jpg", title: "DSC01794", desc: "" },
-            { src: "images/japan/DSC01808.jpg", title: "DSC01808", desc: "" },
-            { src: "images/japan/DSC01810.jpg", title: "DSC01810", desc: "" },
-            { src: "images/japan/DSC01817.jpg", title: "DSC01817", desc: "" },
-            { src: "images/japan/DSC01825.jpg", title: "DSC01825", desc: "" },
-            { src: "images/japan/DSC01829.jpg", title: "DSC01829", desc: "" },
-            { src: "images/japan/DSC01836.jpg", title: "DSC01836", desc: "" },
-            { src: "images/japan/DSC01849.jpg", title: "DSC01849", desc: "" },
-            { src: "images/japan/DSC01866.jpg", title: "DSC01866", desc: "" },
-            { src: "images/japan/DSC01869.jpg", title: "DSC01869", desc: "" },
-            { src: "images/japan/DSC01872.jpg", title: "DSC01872", desc: "" },
-            { src: "images/japan/DSC01874.jpg", title: "DSC01874", desc: "" },
-            { src: "images/japan/DSC01876.jpg", title: "DSC01876", desc: "" },
-            { src: "images/japan/DSC01888.jpg", title: "DSC01888", desc: "" },
-            { src: "images/japan/DSC01894.jpg", title: "DSC01894", desc: "" },
-            { src: "images/japan/DSC01895.jpg", title: "DSC01895", desc: "" },
-            { src: "images/japan/DSC01900.jpg", title: "DSC01900", desc: "" },
-            { src: "images/japan/DSC01903.jpg", title: "DSC01903", desc: "" },
-            { src: "images/japan/DSC01905.jpg", title: "DSC01905", desc: "" },
-            { src: "images/japan/DSC01910.jpg", title: "DSC01910", desc: "" },
-            { src: "images/japan/DSC01915.jpg", title: "DSC01915", desc: "" },
-            { src: "images/japan/DSC01938.jpg", title: "DSC01938", desc: "" },
-            { src: "images/japan/DSC01941.jpg", title: "DSC01941", desc: "" },
-            { src: "images/japan/DSC01948.jpg", title: "DSC01948", desc: "" },
-            { src: "images/japan/DSC01949.jpg", title: "DSC01949", desc: "" },
-            { src: "images/japan/DSC01951.jpg", title: "DSC01951", desc: "" },
-            { src: "images/japan/DSC01952.jpg", title: "DSC01952", desc: "" },
-            { src: "images/japan/DSC01953.jpg", title: "DSC01953", desc: "" },
-            { src: "images/japan/DSC01956.jpg", title: "DSC01956", desc: "" },
-            { src: "images/japan/DSC01960.jpg", title: "DSC01960", desc: "" },
-            { src: "images/japan/DSC01963.jpg", title: "DSC01963", desc: "" },
-            { src: "images/japan/DSC01967.jpg", title: "DSC01967", desc: "" },
-            { src: "images/japan/DSC01970.jpg", title: "DSC01970", desc: "" },
-            { src: "images/japan/DSC01977.jpg", title: "DSC01977", desc: "" },
-            { src: "images/japan/DSC01979.jpg", title: "DSC01979", desc: "" },
-            { src: "images/japan/DSC01980.jpg", title: "DSC01980", desc: "" },
-            { src: "images/japan/DSC01981.jpg", title: "DSC01981", desc: "" },
-            { src: "images/japan/DSC01982.jpg", title: "DSC01982", desc: "" },
-            { src: "images/japan/DSC01983.jpg", title: "DSC01983", desc: "" },
-            { src: "images/japan/DSC01990.jpg", title: "DSC01990", desc: "" },
-            { src: "images/japan/DSC01993.jpg", title: "DSC01993", desc: "" },
-            { src: "images/japan/DSC01999.jpg", title: "DSC01999", desc: "" },
-            { src: "images/japan/DSC02036.jpg", title: "DSC02036", desc: "" },
-            { src: "images/japan/DSC02041.jpg", title: "DSC02041", desc: "" },
-            { src: "images/japan/DSC02048.jpg", title: "DSC02048", desc: "" },
-            { src: "images/japan/DSC02057.jpg", title: "DSC02057", desc: "" },
             { src: "images/japan/DSC02058.jpg", title: "DSC02058", desc: "" },
+            { src: "images/japan/DSC02057.jpg", title: "DSC02057", desc: "" },
+            { src: "images/japan/DSC02048.jpg", title: "DSC02048", desc: "" },
+            { src: "images/japan/DSC02041.jpg", title: "DSC02041", desc: "" },
+            { src: "images/japan/DSC02036.jpg", title: "DSC02036", desc: "" },
+            { src: "images/japan/DSC01999.jpg", title: "DSC01999", desc: "" },
+            { src: "images/japan/DSC01993.jpg", title: "DSC01993", desc: "" },
+            { src: "images/japan/DSC01990.jpg", title: "DSC01990", desc: "" },
+            { src: "images/japan/DSC01983.jpg", title: "DSC01983", desc: "" },
+            { src: "images/japan/DSC01982.jpg", title: "DSC01982", desc: "" },
+            { src: "images/japan/DSC01981.jpg", title: "DSC01981", desc: "" },
+            { src: "images/japan/DSC01980.jpg", title: "DSC01980", desc: "" },
+            { src: "images/japan/DSC01979.jpg", title: "DSC01979", desc: "" },
+            { src: "images/japan/DSC01977.jpg", title: "DSC01977", desc: "" },
+            { src: "images/japan/DSC01970.jpg", title: "DSC01970", desc: "" },
+            { src: "images/japan/DSC01967.jpg", title: "DSC01967", desc: "" },
+            { src: "images/japan/DSC01963.jpg", title: "DSC01963", desc: "" },
+            { src: "images/japan/DSC01960.jpg", title: "DSC01960", desc: "" },
+            { src: "images/japan/DSC01956.jpg", title: "DSC01956", desc: "" },
+            { src: "images/japan/DSC01953.jpg", title: "DSC01953", desc: "" },
+            { src: "images/japan/DSC01952.jpg", title: "DSC01952", desc: "" },
+            { src: "images/japan/DSC01951.jpg", title: "DSC01951", desc: "" },
+            { src: "images/japan/DSC01949.jpg", title: "DSC01949", desc: "" },
+            { src: "images/japan/DSC01948.jpg", title: "DSC01948", desc: "" },
+            { src: "images/japan/DSC01941.jpg", title: "DSC01941", desc: "" },
+            { src: "images/japan/DSC01938.jpg", title: "DSC01938", desc: "" },
+            { src: "images/japan/DSC01915.jpg", title: "DSC01915", desc: "" },
+            { src: "images/japan/DSC01910.jpg", title: "DSC01910", desc: "" },
+            { src: "images/japan/DSC01905.jpg", title: "DSC01905", desc: "" },
+            { src: "images/japan/DSC01903.jpg", title: "DSC01903", desc: "" },
+            { src: "images/japan/DSC01900.jpg", title: "DSC01900", desc: "" },
+            { src: "images/japan/DSC01895.jpg", title: "DSC01895", desc: "" },
+            { src: "images/japan/DSC01894.jpg", title: "DSC01894", desc: "" },
+            { src: "images/japan/DSC01888.jpg", title: "DSC01888", desc: "" },
+            { src: "images/japan/DSC01876.jpg", title: "DSC01876", desc: "" },
+            { src: "images/japan/DSC01874.jpg", title: "DSC01874", desc: "" },
+            { src: "images/japan/DSC01872.jpg", title: "DSC01872", desc: "" },
+            { src: "images/japan/DSC01869.jpg", title: "DSC01869", desc: "" },
+            { src: "images/japan/DSC01866.jpg", title: "DSC01866", desc: "" },
+            { src: "images/japan/DSC01849.jpg", title: "DSC01849", desc: "" },
+            { src: "images/japan/DSC01836.jpg", title: "DSC01836", desc: "" },
+            { src: "images/japan/DSC01829.jpg", title: "DSC01829", desc: "" },
+            { src: "images/japan/DSC01825.jpg", title: "DSC01825", desc: "" },
+            { src: "images/japan/DSC01817.jpg", title: "DSC01817", desc: "" },
+            { src: "images/japan/DSC01810.jpg", title: "DSC01810", desc: "" },
+            { src: "images/japan/DSC01808.jpg", title: "DSC01808", desc: "" },
+            { src: "images/japan/DSC01794.jpg", title: "DSC01794", desc: "" },
+            { src: "images/japan/DSC01792.jpg", title: "DSC01792", desc: "" },
+            { src: "images/japan/DSC01788.jpg", title: "DSC01788", desc: "" },
+            { src: "images/japan/DSC01784.jpg", title: "DSC01784", desc: "" },
+            { src: "images/japan/DSC01775.jpg", title: "DSC01775", desc: "" },
+            { src: "images/japan/DSC01770.jpg", title: "DSC01770", desc: "" },
+            { src: "images/japan/DSC01763.jpg", title: "DSC01763", desc: "" },
+            { src: "images/japan/DSC01760.jpg", title: "DSC01760", desc: "" },
+            { src: "images/japan/DSC01750.jpg", title: "DSC01750", desc: "" },
+            { src: "images/japan/DSC01747.jpg", title: "DSC01747", desc: "" },
+            { src: "images/japan/DSC01740.jpg", title: "DSC01740", desc: "" },
+            { src: "images/japan/DSC01737.jpg", title: "DSC01737", desc: "" },
+            { src: "images/japan/DSC01736.jpg", title: "DSC01736", desc: "" },
+            { src: "images/japan/DSC01709.jpg", title: "DSC01709", desc: "" },
+            { src: "images/japan/DSC01700.jpg", title: "DSC01700", desc: "" },
+            { src: "images/japan/DSC01691.jpg", title: "DSC01691", desc: "" },
+            { src: "images/japan/DSC01689.jpg", title: "DSC01689", desc: "" },
+            { src: "images/japan/DSC01676.jpg", title: "DSC01676", desc: "" },
+            { src: "images/japan/DSC01671.jpg", title: "DSC01671", desc: "" },
+            { src: "images/japan/DSC01660.jpg", title: "DSC01660", desc: "" },
+            { src: "images/japan/DSC01655.jpg", title: "DSC01655", desc: "" },
+            { src: "images/japan/DSC01654.jpg", title: "DSC01654", desc: "" },
+            { src: "images/japan/DSC01652.jpg", title: "DSC01652", desc: "" },
+            { src: "images/japan/DSC01648.jpg", title: "DSC01648", desc: "" },
+            { src: "images/japan/DSC01635.jpg", title: "DSC01635", desc: "" },
+            { src: "images/japan/DSC01626.jpg", title: "DSC01626", desc: "" },
+            { src: "images/japan/DSC01605.jpg", title: "DSC01605", desc: "" },
+            { src: "images/japan/DSC01590.jpg", title: "DSC01590", desc: "" },
+            { src: "images/japan/DSC01586.jpg", title: "DSC01586", desc: "" },
+            { src: "images/japan/DSC01579.jpg", title: "DSC01579", desc: "" },
         ];
-        let currentIndex = 0;
-        function loadGallery() {
-            const gallery = document.getElementById('gallery');
-            photos.forEach((photo, i) => {
-                const item = document.createElement('div');
-                item.className = 'gallery-item';
-                const img = document.createElement('img');
-                img.alt = photo.title; img.loading = 'lazy'; img.decoding = 'async';
-                img.onload = () => img.classList.add('loaded');
-                img.onerror = () => img.classList.add('loaded');
-                img.onclick = () => showModal(i);
-                img.src = photo.src;
-                item.appendChild(img); gallery.appendChild(item);
-            });
-        }
-        function showModal(index) {
-            currentIndex = index;
-            const p = photos[index];
-            document.getElementById('modalImg').src = p.src;
-            document.getElementById('modalImg').alt = p.title;
-            document.getElementById('modalTitle').textContent = p.title;
-            document.getElementById('modalDesc').textContent = p.desc;
-            document.getElementById('prevBtn').disabled = index === 0;
-            document.getElementById('nextBtn').disabled = index === photos.length - 1;
-            document.getElementById('modal').classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeModal() { document.getElementById('modal').classList.remove('open'); document.body.style.overflow = ''; }
-        function navigateModal(dir) { const n = currentIndex + dir; if (n >= 0 && n < photos.length) showModal(n); }
-        document.addEventListener('keydown', e => {
-            if (!document.getElementById('modal').classList.contains('open')) return;
-            if (e.key === 'Escape') closeModal();
-            if (e.key === 'ArrowLeft') navigateModal(-1);
-            if (e.key === 'ArrowRight') navigateModal(1);
-        });
-        window.onload = loadGallery;
+
+        initGallery(photos);
     </script>
 </body>
 </html>

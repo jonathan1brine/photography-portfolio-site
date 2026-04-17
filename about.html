@@ -3,136 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About Jonathan Brine — first-year Software Engineering student and photographer based in Adelaide, Australia. Sony a6000, Sigma 30mm f/1.4.">
+    <meta property="og:title" content="About | Jonathan Brine Photography">
+    <meta property="og:description" content="First-year Software Engineering student and photographer based in Adelaide, Australia.">
+    <meta property="og:type" content="website">
     <title>About | Jonathan Brine</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23222' rx='3'/%3E%3Ctext x='50%25' y='54%25' font-size='13' dominant-baseline='central' text-anchor='middle' fill='%23f9f8f6' font-family='Georgia%2Cserif' font-style='italic'%3EJB%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="css/style.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
-
-        *, *::before, *::after { box-sizing: border-box; }
-
-        :root {
-            --bg: #f9f8f6;
-            --fg: #222;
-            --muted: #777;
-            --border: #e8e5e0;
-        }
-
-        body {
-            font-family: 'DM Sans', system-ui, sans-serif;
-            background-color: var(--bg);
-            color: var(--fg);
-            margin: 0;
-            padding: 0;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.025;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            background-size: 128px 128px;
-        }
-
-        /* ── Header ── */
-        header {
-            padding: 1.4rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            background: rgba(249,248,246,0.92);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 100;
-        }
-
-        /* Dynamic back button — text set by JS based on referrer */
-        .back {
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 0.88rem;
-            letter-spacing: 0.02em;
-            transition: color 0.2s;
-        }
-        .back:hover { color: var(--fg); }
-
-        nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 0.88rem;
-            font-weight: 400;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            transition: color 0.2s;
-        }
-        nav a:hover, nav a.active { color: var(--fg); }
-
-        /* ── Layout ── */
         main {
-            max-width: 780px;
+            max-width: 760px;
             margin: 0 auto;
-            padding: 6rem 5% 8rem;
+            padding: 5.5rem 5% 8rem;
         }
 
-        /* Photo sits beside the intro text on wider screens */
         .about-header {
             display: flex;
             align-items: flex-start;
             gap: 3rem;
-            margin-bottom: 4rem;
+            margin-bottom: 3.5rem;
         }
 
-        .selfie {
-            width: 180px;
-            height: 180px;
+        .pfp-large {
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             object-fit: cover;
             flex-shrink: 0;
-            border: 3px solid var(--border);
+            border: 2px solid var(--border);
         }
 
         .about-intro h1 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-size: clamp(1.9rem, 4vw, 2.6rem);
             font-weight: 400;
-            margin: 0 0 0.6rem;
-            letter-spacing: -0.5px;
+            margin: 0 0 0.5rem;
+            letter-spacing: -0.4px;
         }
 
         .about-intro .tagline {
             color: var(--muted);
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             margin: 0;
-            letter-spacing: 0.02em;
+            line-height: 1.7;
         }
 
-        /* ── Body text ── */
         .about-body {
             border-top: 1px solid var(--border);
-            padding-top: 3rem;
+            padding-top: 2.8rem;
         }
 
         .about-body p {
-            font-size: 1.05rem;
-            line-height: 1.85;
-            margin: 0 0 1.6rem;
+            font-size: 1.02rem;
+            line-height: 1.9;
+            margin: 0 0 1.5rem;
             color: #333;
         }
 
-        /* ── Gear / details list ── */
         .details {
-            margin: 3rem 0 0;
+            margin: 2.8rem 0 0;
             border-top: 1px solid var(--border);
-            padding-top: 2.4rem;
+            padding-top: 2.2rem;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1.4rem 2rem;
@@ -140,47 +71,39 @@
 
         .detail-item label {
             display: block;
-            font-size: 0.72rem;
-            letter-spacing: 0.1em;
+            font-size: 0.68rem;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--muted);
             margin-bottom: 4px;
         }
 
         .detail-item span {
-            font-size: 0.95rem;
+            font-size: 0.93rem;
             color: var(--fg);
         }
 
-        /* ── Copyright ── */
         .copyright {
-            margin-top: 5rem;
+            margin-top: 4.5rem;
             padding-top: 2rem;
             border-top: 1px solid var(--border);
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             color: var(--muted);
-            letter-spacing: 0.02em;
         }
 
-        /* ── Mobile ── */
         @media (max-width: 560px) {
             .about-header { flex-direction: column; align-items: center; text-align: center; gap: 1.5rem; }
-            .selfie { width: 130px; height: 130px; }
+            .pfp-large { width: 120px; height: 120px; }
             .details { grid-template-columns: 1fr; }
-            nav { gap: 1.2rem; }
-            nav a { font-size: 0.8rem; }
         }
     </style>
 </head>
 <body>
     <header>
-        <!--
-            The back link text is set dynamically by the JS at the bottom.
-            It checks document.referrer to decide whether the user came from
-            index.html (Home) or portfolio.html (Portfolio), then updates accordingly.
-            Falls back to "← Portfolio" if the referrer is unknown (e.g. direct visit).
-        -->
-        <a href="#" class="back" id="backLink">← Portfolio</a>
+        <a href="portfolio.html" class="back" id="backLink">&larr; Portfolio</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
         <nav>
             <a href="index.html">Home</a>
             <a href="portfolio.html">Portfolio</a>
@@ -191,32 +114,30 @@
 
     <main>
         <div class="about-header">
-            <img src="images/pfp.jpg" alt="Jonathan Brine" class="selfie">
+            <img src="images/pfp.jpg" alt="Jonathan Brine" class="pfp-large">
             <div class="about-intro">
                 <h1>Jonathan Brine</h1>
-                <p class="tagline">Software Engineering student · Photographer · Adelaide, AU</p>
+                <p class="tagline">
+                    Software Engineering student<br>
+                    Photographer &middot; Adelaide, Australia
+                </p>
             </div>
         </div>
 
         <div class="about-body">
             <p>
-                I'm a first-year Software Engineering student at the University of Adelaide.
-                Photography is a side hobby — I shoot travel, street, and landscape, mostly
-                just to document places and moments I'd otherwise forget.
+                I&rsquo;m a first-year Software Engineering student at the University of Adelaide.
+                Photography is a side hobby &mdash; I shoot travel, street, and landscape, mostly
+                to document places and moments I&rsquo;d otherwise forget.
             </p>
             <p>
                 I focus on quiet, everyday things: the light in a room, a view from a trail,
                 the feeling of somewhere new. Nothing too staged.
             </p>
             <p>
-                This site is a personal project — built from scratch and hosted on GitHub Pages.
+                This site is a personal project, built from scratch and hosted on GitHub Pages.
             </p>
 
-            <!--
-                GEAR / DETAILS
-                Easy to update: just change the <span> text inside each .detail-item
-                To add a new row: copy a .detail-item div and add it inside .details
-            -->
             <div class="details">
                 <div class="detail-item">
                     <label>Camera</label>
@@ -237,39 +158,23 @@
             </div>
         </div>
 
-        <p class="copyright">All photographs © 2026 Jonathan Brine</p>
+        <p class="copyright">All photographs &copy; 2026 Jonathan Brine</p>
     </main>
 
+    <script src="js/main.js"></script>
     <script>
-        // ── Dynamic back button (fixes GitHub issue #2) ──────────────────
-        // Checks where the user came from and updates the back link text + href.
-        // Works for same-origin navigation. Falls back gracefully for direct visits.
-
+        // Dynamic back link — goes to wherever the user came from
         (function () {
             const backLink = document.getElementById('backLink');
             const ref = document.referrer;
-
-            if (ref) {
-                try {
-                    const refUrl = new URL(ref);
-                    const refPath = refUrl.pathname;
-
-                    if (refPath.endsWith('index.html') || refPath === '/' || refPath === '') {
-                        backLink.textContent = '← Home';
-                        backLink.href = 'index.html';
-                    } else {
-                        // Any other page (portfolio, gallery pages etc.) → back to portfolio
-                        backLink.textContent = '← Portfolio';
-                        backLink.href = 'portfolio.html';
-                    }
-                } catch (e) {
-                    // Malformed referrer — use default
-                    backLink.href = 'portfolio.html';
+            if (!ref) return;
+            try {
+                const refPath = new URL(ref).pathname;
+                if (refPath.endsWith('index.html') || refPath === '/' || refPath === '') {
+                    backLink.textContent = '\u2190 Home';
+                    backLink.href = 'index.html';
                 }
-            } else {
-                // No referrer (direct visit, private browsing, cross-origin) — default
-                backLink.href = 'portfolio.html';
-            }
+            } catch (_) {}
         })();
     </script>
 </body>

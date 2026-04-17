@@ -3,121 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Photography portfolio — Japan, Sydney, Melbourne, and Adelaide. Street, travel, and landscape photography by Jonathan Brine.">
+    <meta property="og:title" content="Portfolio | Jonathan Brine Photography">
+    <meta property="og:description" content="Street, travel, and landscape photography across Japan, Sydney, Melbourne, and Adelaide.">
+    <meta property="og:image" content="images/japan/DSC01770.jpg">
+    <meta property="og:type" content="website">
     <title>Portfolio | Jonathan Brine</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23222' rx='3'/%3E%3Ctext x='50%25' y='54%25' font-size='13' dominant-baseline='central' text-anchor='middle' fill='%23f9f8f6' font-family='Georgia%2Cserif' font-style='italic'%3EJB%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="css/style.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
-
-        *, *::before, *::after { box-sizing: border-box; }
-
-        :root {
-            --bg: #f9f8f6;
-            --fg: #222;
-            --muted: #777;
-            --border: #e8e5e0;
-        }
-
-        body {
-            font-family: 'DM Sans', system-ui, sans-serif;
-            background-color: var(--bg);
-            color: var(--fg);
-            margin: 0;
-            padding: 0;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.025;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            background-size: 128px 128px;
-        }
-
-        /* ── Header ── */
-        header {
-            padding: 1.4rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            background: rgba(249,248,246,0.92);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 100;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 0.9rem;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .selfie {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--border);
-        }
-
-        .site-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            font-weight: 400;
-            letter-spacing: -0.3px;
-            margin: 0;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 0.88rem;
-            font-weight: 400;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            transition: color 0.2s;
-        }
-        nav a:hover, nav a.active { color: var(--fg); }
-
-        /* ── Page title ── */
+        /* ── Page intro ── */
         .page-intro {
-            padding: 5rem 5% 3rem;
+            padding: 4.5rem 5% 3rem;
             max-width: 1400px;
             margin: 0 auto;
             border-bottom: 1px solid var(--border);
-            margin-bottom: 4rem;
+            margin-bottom: 3.5rem;
         }
 
         .page-intro h2 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 4vw, 3rem);
+            font-size: clamp(1.9rem, 4vw, 2.8rem);
             font-weight: 400;
-            margin: 0 0 0.6rem;
-            letter-spacing: -0.8px;
+            margin: 0 0 0.5rem;
+            letter-spacing: -0.6px;
         }
 
         .page-intro p {
             color: var(--muted);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             margin: 0;
         }
 
         /* ── Series grid ── */
         .series-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 20px;
             max-width: 1400px;
             margin: 0 auto;
@@ -128,30 +49,30 @@
             text-decoration: none;
             color: inherit;
             display: block;
-            border-radius: 6px;
+            border-radius: var(--radius);
             overflow: hidden;
             position: relative;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-            transition: transform 0.35s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .series-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(0,0,0,0.14);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.13);
         }
 
         .series-card img {
             width: 100%;
-            height: 280px;
+            height: 270px;
             object-fit: cover;
             display: block;
             transition: transform 0.5s ease, filter 0.4s ease;
-            filter: brightness(0.85);
+            filter: brightness(0.82);
         }
 
         .series-card:hover img {
-            transform: scale(1.04);
-            filter: brightness(0.7);
+            transform: scale(1.03);
+            filter: brightness(0.65);
         }
 
         .card-body {
@@ -159,52 +80,41 @@
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 1.6rem 1.2rem 1.1rem;
+            padding: 1.4rem 1.1rem 1rem;
             background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 100%);
             color: #fff;
         }
 
         .card-body h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             font-weight: 400;
-            margin: 0 0 4px;
+            margin: 0 0 3px;
             letter-spacing: -0.2px;
         }
 
-        .card-body .card-meta {
-            font-size: 0.8rem;
-            opacity: 0.75;
-            letter-spacing: 0.02em;
+        .card-meta {
+            font-size: 0.76rem;
+            opacity: 0.7;
+            letter-spacing: 0.03em;
             margin: 0;
         }
 
-        .card-body .card-desc {
-            font-size: 0.85rem;
+        .card-desc {
+            font-size: 0.82rem;
             margin: 6px 0 0;
             opacity: 0;
             transform: translateY(4px);
             transition: opacity 0.3s ease, transform 0.3s ease;
+            line-height: 1.5;
         }
 
         .series-card:hover .card-desc {
-            opacity: 0.9;
+            opacity: 0.85;
             transform: translateY(0);
         }
 
-        /* ── Footer ── */
-        footer {
-            text-align: center;
-            padding: 2.5rem 5%;
-            border-top: 1px solid var(--border);
-            color: var(--muted);
-            font-size: 0.82rem;
-            letter-spacing: 0.03em;
-        }
-
         @media (max-width: 560px) {
-            nav { gap: 1.2rem; }
-            nav a { font-size: 0.8rem; }
             .series-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -212,9 +122,12 @@
 <body>
     <header>
         <a href="index.html" class="header-left">
-            <img src="images/pfp.jpg" alt="Jonathan Brine" class="selfie">
+            <img src="images/pfp.jpg" alt="Jonathan Brine" class="nav-pfp">
             <p class="site-name">Jonathan Brine</p>
         </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
         <nav>
             <a href="index.html">Home</a>
             <a href="portfolio.html" class="active">Portfolio</a>
@@ -224,54 +137,48 @@
     </header>
 
     <div class="page-intro">
-        <h2>Photography Portfolio</h2>
-        <p>A collection of places I've visited and photographed.</p>
+        <h2>Portfolio</h2>
+        <p>Places I've visited and photographed.</p>
     </div>
 
     <div class="series-grid">
-        <!--
-            TO ADD A NEW SERIES:
-            1. Copy one of the <a class="series-card"> blocks below
-            2. Update href, img src, h3 title, date span, and description
-            3. Add the new gallery HTML file (same template as the other city pages)
-            4. Done — the grid auto-fills
-        -->
         <a href="japan.html" class="series-card">
-            <img src="images/japan/DSC01770.jpg" alt="Japan">
+            <img src="images/japan/DSC01770.jpg" alt="Japan" loading="lazy">
             <div class="card-body">
                 <h3>Japan</h3>
-                <p class="card-meta">April 2025 · 75 photos</p>
+                <p class="card-meta">April 2025 &middot; 76 photos</p>
                 <p class="card-desc">My first time overseas</p>
             </div>
         </a>
         <a href="sydney.html" class="series-card">
-            <img src="images/sydney/DSC00675.jpg" alt="Sydney">
+            <img src="images/sydney/DSC00675.jpg" alt="Sydney" loading="lazy">
             <div class="card-body">
                 <h3>Sydney</h3>
-                <p class="card-meta">February 2026 · 47 photos</p>
-                <p class="card-desc">My first solo travel</p>
+                <p class="card-meta">February 2026 &middot; 47 photos</p>
+                <p class="card-desc">First solo trip</p>
             </div>
         </a>
         <a href="melbourne.html" class="series-card">
-            <img src="images/melbourne/DSC01156.jpg" alt="Melbourne">
+            <img src="images/melbourne/DSC01156.jpg" alt="Melbourne" loading="lazy">
             <div class="card-body">
                 <h3>Melbourne</h3>
-                <p class="card-meta">December 2025 · 14 photos</p>
-                <p class="card-desc">My most visited city</p>
+                <p class="card-meta">December 2025 &middot; 14 photos</p>
             </div>
         </a>
         <a href="adelaide.html" class="series-card">
-            <img src="images/adelaide/DSC02386.jpg" alt="Adelaide">
+            <img src="images/adelaide/DSC02386.jpg" alt="Adelaide" loading="lazy">
             <div class="card-body">
                 <h3>Adelaide</h3>
-                <p class="card-meta">2007-Present · 13 photos</p>
-                <p class="card-desc">My hometown</p>
+                <p class="card-meta">2024&ndash;Present &middot; 9 photos</p>
+                <p class="card-desc">Home</p>
             </div>
         </a>
     </div>
 
     <footer>
-        © 2026 Jonathan Brine — All photographs are my own
+        &copy; 2026 Jonathan Brine &mdash; All photographs are my own
     </footer>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
